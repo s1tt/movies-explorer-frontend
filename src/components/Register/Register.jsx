@@ -20,11 +20,24 @@ const Register = () => {
           <label htmlFor="name" className="register__label">
             Имя
           </label>
-          <input type="text" name="name" id="name" className="register__input" />
+          <input
+            type="text"
+            name="name"
+            id="name"
+            minLength="3"
+            className="register__input"
+            placeholder="Введите ваше имя"
+          />
           <label htmlFor="email" className="register__label">
             E-mail
           </label>
-          <input type="email" name="email" id="email" className="register__input" />
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Введите ваш e-mail"
+            className="register__input"
+          />
           <label htmlFor="password" className="register__label">
             Пароль
           </label>
@@ -32,6 +45,8 @@ const Register = () => {
             type="password"
             name="password"
             id="password"
+            minLength="3"
+            placeholder="Придумайте пароль"
             className="register__input register__input-error"
           />
           <p className="register__error register__error_active">Что-то пошло не так...</p>

@@ -24,6 +24,8 @@ const Profile = () => {
                   id="name"
                   className="profile__input"
                   defaultValue="Виталий"
+                  minLength="3"
+                  placeholder="Напишите свое имя"
                 />
               </label>
 
@@ -35,6 +37,7 @@ const Profile = () => {
                   id="email"
                   className="profile__input"
                   defaultValue="pochta@yandex.ru"
+                  placeholder="Напишите ваш e-mail"
                 />
               </label>
             </div>

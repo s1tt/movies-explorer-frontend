@@ -20,7 +20,13 @@ const Login = () => {
           <label htmlFor="email" className="login__label">
             E-mail
           </label>
-          <input type="email" name="email" id="email" className="login__input" />
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Введите ваш e-mail"
+            className="login__input"
+          />
           <label htmlFor="password" className="login__label">
             Пароль
           </label>
@@ -28,6 +34,8 @@ const Login = () => {
             type="password"
             name="password"
             id="password"
+            placeholder="Введите ваш пароль"
+            minLength="3"
             className="login__input login__input-error"
           />
           <p className="login__error login__error_active">Что-то пошло не так...</p>
