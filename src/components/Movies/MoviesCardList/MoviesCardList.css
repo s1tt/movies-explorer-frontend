@@ -8,6 +8,7 @@
 .movies-card-list__items {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 32px 20px;
   margin-top: 117px;
 }
