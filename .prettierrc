@@ -1,0 +1,26 @@
+{
+  "semi": true,
+  "tabWidth": 2,
+  "printWidth": 100,
+  "singleQuote": true,
+  "trailingComma": "none",
+  "jsxBracketSameLine": true,
+  "endOfLine": "auto",
+  "importOrder": [
+    "^react$",
+    "^react-dom$",
+    "^react-router$",
+    "^react-router-dom$",
+
+    "^@?[a-z]",
+    "^@?[A-Z]",
+
+    "^\\.",
+
+    "^.+\\.s?css$",
+
+    ".*"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
+}
