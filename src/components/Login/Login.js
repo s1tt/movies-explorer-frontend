@@ -12,7 +12,9 @@ const Login = () => {
   return (
     <section className="login">
       <div className="login__wrapper">
-        <img src={logo} alt="Logo" className="login__logo" />
+        <Link to="/" className="login__logo-link ">
+          <img className="login__logo" src={logo} alt="Logo" />
+        </Link>
         <h1 className="login__title">Рады видеть!</h1>
         <form className="login__form" onSubmit={onSubmit}>
           <label htmlFor="email" className="login__label">

@@ -12,7 +12,9 @@ const Register = () => {
   return (
     <section className="register">
       <div className="register__wrapper">
-        <img src={logo} alt="Logo" className="register__logo" />
+        <Link to="/" className="register__logo-link ">
+          <img className="register__logo" src={logo} alt="Logo" />
+        </Link>
         <h1 className="register__title">Добро пожаловать!</h1>
         <form className="register__form" onSubmit={onSubmit}>
           <label htmlFor="name" className="register__label">
