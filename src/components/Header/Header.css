@@ -64,6 +64,7 @@
 
 .header__nav-link-burger_active {
   border-bottom: 2px solid #ffffff;
+  cursor: default;
 }
 
 .header__account {
@@ -83,6 +84,7 @@
 }
 
 .header__nav-link_active:hover,
+.header__nav-link-burger_active:hover,
 .header__account:hover .header__nav-link_active {
   opacity: 1;
   cursor: default;
