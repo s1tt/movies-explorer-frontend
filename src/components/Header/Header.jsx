@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import accountIco from '../../images/icon_account.png';
-import logo from '../../images/logo.png';
 import './Header.css';
 
 import { useCurrentDevice } from '../../contexts/WindowWidthContext.js';
+import Logo from '../Logo/Logo';
 import Sidebar from './Sidebar/Sidebar.js';
 
 function Header() {
@@ -12,6 +12,7 @@ function Header() {
   const [isMobile, setIsMobile] = useState(false);
   const currentDevice = useCurrentDevice();
   const location = useLocation();
+  // const isLoggedIn = useState(false);
 
   useEffect(() => {
     setIsBurgerTime(currentDevice !== 'desktop');
@@ -30,9 +31,7 @@ function Header() {
   return (
     <header id="header" className={`header ${checkLocation('/', 'header_page_main')}`}>
       <div className="header__wrapper">
-        <Link to="/" className="header__logo-link ">
-          <img className="header__logo" src={logo} alt="Logo" />
-        </Link>
+        <Logo />
 
         {isBurgerTime ? (
           <Sidebar isMobile={isMobile} pageWrapId={'header'} outerContainerId={'header'} />

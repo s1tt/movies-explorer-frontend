@@ -21,14 +21,6 @@
   padding-right: var(--padding-pc);
 }
 
-.header__logo {
-  transition: opacity 0.3s;
-}
-
-.header__logo:hover {
-  opacity: 0.7;
-}
-
 .header__nav {
   margin-left: 65px;
 }

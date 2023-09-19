@@ -15,10 +15,6 @@
   flex-direction: column;
 }
 
-.login__logo {
-  margin-bottom: 37px;
-}
-
 .login__title {
   margin: 0;
   margin-bottom: 38px;

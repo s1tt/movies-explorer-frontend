@@ -1,0 +1,15 @@
+.logo {
+  transition: opacity 0.3s;
+}
+
+.logo:hover {
+  opacity: 0.7;
+}
+
+.logo__link {
+  display: flex;
+}
+
+.logo__link-auth {
+  margin-bottom: 37px;
+}

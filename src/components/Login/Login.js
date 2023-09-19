@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../images/logo.png';
+import Logo from '../Logo/Logo';
 import './Login.css';
 
 const Login = () => {
@@ -12,9 +12,7 @@ const Login = () => {
   return (
     <section className="login">
       <div className="login__wrapper">
-        <Link to="/" className="login__logo-link ">
-          <img className="login__logo" src={logo} alt="Logo" />
-        </Link>
+        <Logo className="login__logo" />
         <h1 className="login__title">Рады видеть!</h1>
         <form className="login__form" onSubmit={onSubmit}>
           <label htmlFor="email" className="login__label">

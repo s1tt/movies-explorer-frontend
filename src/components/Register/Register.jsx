@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../images/logo.png';
+import Logo from '../Logo/Logo';
 import './Register.css';
 
 const Register = () => {
@@ -12,9 +12,7 @@ const Register = () => {
   return (
     <section className="register">
       <div className="register__wrapper">
-        <Link to="/" className="register__logo-link ">
-          <img className="register__logo" src={logo} alt="Logo" />
-        </Link>
+        <Logo />
         <h1 className="register__title">Добро пожаловать!</h1>
         <form className="register__form" onSubmit={onSubmit}>
           <label htmlFor="name" className="register__label">
