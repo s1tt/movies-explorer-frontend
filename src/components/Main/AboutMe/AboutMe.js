@@ -1,6 +1,6 @@
 import React from 'react';
-import './AboutMe.css';
 import photo from '../../../images/pic__COLOR_pic.jpg';
+import './AboutMe.css';
 
 const AboutMe = () => {
   return (
@@ -17,7 +17,11 @@ const AboutMe = () => {
               работал в компании «СКБ Контур». После того, как прошёл курс по веб-разработке, начал
               заниматься фриланс-заказами и ушёл с постоянной работы.
             </p>
-            <a href="#" className="about-me__gh-link">
+            <a
+              href="https://github.com/s1tt"
+              target="_blank"
+              rel="noreferrer"
+              className="about-me__gh-link">
               Github
             </a>
           </div>
