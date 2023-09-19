@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { slide as Menu } from 'react-burger-menu';
 import { Link, useLocation } from 'react-router-dom';
-import burgerIco from '../../images/burger.svg';
-import crossIco from '../../images/cross.svg';
-import accountIco from '../../images/icon_account.png';
+import burgerIco from '../../../images/burger.svg';
+import crossIco from '../../../images/cross.svg';
+import accountIco from '../../../images/icon_account.png';
 import './Sidebar.css';
 
 function Sidebar({ isMobile }) {

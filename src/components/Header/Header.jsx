@@ -5,7 +5,7 @@ import logo from '../../images/logo.png';
 import './Header.css';
 
 import { useCurrentDevice } from '../../contexts/WindowWidthContext.js';
-import Sidebar from '../Sidebar/Sidebar.js';
+import Sidebar from './Sidebar/Sidebar.js';
 
 function Header() {
   const [isBurgerTime, setIsBurgerTime] = useState(false);

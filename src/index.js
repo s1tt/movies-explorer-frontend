@@ -2,7 +2,7 @@ import 'normalize.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import App from './App';
+import App from './components/App/App';
 import { WindowWidthProvider } from './contexts/WindowWidthContext';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
