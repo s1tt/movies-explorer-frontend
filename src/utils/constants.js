@@ -6,7 +6,7 @@ const deviceWidth = {
     }
   },
   tablet: {
-    width: 990,
+    width: 768,
     cards: {
       initialQuantity: 8,
       subload: 4
@@ -22,4 +22,3 @@ const deviceWidth = {
 };
 
 export { deviceWidth };
-//520

@@ -80,7 +80,7 @@
   line-height: 17px;
 }
 
-@media screen and (max-width: 990px) {
+@media screen and (max-width: 768px) {
   .about-project__wrapper {
     padding-left: var(--padding-tablet);
     padding-right: var(--padding-tablet);

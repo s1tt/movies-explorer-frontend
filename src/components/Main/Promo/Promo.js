@@ -23,7 +23,9 @@ function Promo() {
             Узнать больше
           </Link>
         </div>
-        <img src={promoImg} alt="Web Image" className="promo__img" />
+        <div className="promo__img-wrapper">
+          <img src={promoImg} alt="Web Image" className="promo__img" />
+        </div>
       </div>
     </section>
   );

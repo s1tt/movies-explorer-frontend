@@ -120,7 +120,7 @@
   background: #202020;
 } */
 
-@media screen and (max-width: 990px) {
+@media screen and (max-width: 768px) {
   .header__wrapper {
     padding: 18px calc(var(--padding-tablet) - 20px);
   }

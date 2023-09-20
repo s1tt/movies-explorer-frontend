@@ -1,7 +1,7 @@
 @import url('./vendor/fonts/inter.css');
 
 :root {
-  --tablet-resolution: 990px;
+  --tablet-resolution: 768px;
   --mobile-resolution: 520px;
 
   --first-bg-color: #073042;
