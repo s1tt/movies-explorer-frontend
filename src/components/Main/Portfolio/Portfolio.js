@@ -1,5 +1,5 @@
 import React from 'react';
-import arrowIco from '../../../images/arrow-ico.png';
+import arrowIco from '../../../images/arrow-ico.svg';
 import './Portfolio.css';
 
 const Portfolio = () => {

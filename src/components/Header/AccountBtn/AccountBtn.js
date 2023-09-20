@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useCurrentDevice } from '../../../contexts/WindowWidthContext';
-import accountIco from '../../../images/icon_account.png';
+import accountIco from '../../../images/icon_account.svg';
 import './AccountBtn.css';
 
 const AccountBtn = ({ closeBurger }) => {

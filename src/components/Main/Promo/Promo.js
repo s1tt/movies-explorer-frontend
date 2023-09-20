@@ -1,5 +1,5 @@
 import { Link } from 'react-scroll';
-import promoImg from '../../../images/promo-img.png';
+import promoImg from '../../../images/promo-img.svg';
 import './Promo.css';
 
 import React from 'react';
