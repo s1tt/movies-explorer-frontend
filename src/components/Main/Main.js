@@ -8,15 +8,13 @@ import Techs from './Techs/Techs';
 
 function Main() {
   return (
-    <main className="content">
-      {/* <Header /> */}
+    <>
       <Promo />
       <AboutProject />
       <Techs />
       <AboutMe />
       <Portfolio />
-      {/* <Footer /> */}
-    </main>
+    </>
   );
 }
 
