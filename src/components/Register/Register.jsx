@@ -49,9 +49,6 @@ const Register = ({ setIsLoggedIn }) => {
             className="register__input register__input-error"
           />
           <p className="register__error register__error_active">Что-то пошло не так...</p>
-          {/* <button type="submit" className="register__btn">
-            Зарегистрироваться
-          </button> */}
           <Link to="/movies" className="register__btn" onClick={() => setIsLoggedIn(true)}>
             Зарегистрироваться
           </Link>

@@ -26,7 +26,7 @@ const MoviesCard = ({ data }) => {
             <span className="card__favorite-checkmark"></span>
           </label>
         ) : (
-          <button className="card__cross-btn">
+          <button className="card__cross-btn" type="button">
             <img className="card__cross-ico" src={cardCrossIco} alt="cross-ico" />
           </button>
         )}
