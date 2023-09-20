@@ -54,6 +54,12 @@
   margin-bottom: 20px;
 }
 
+.login__input:focus {
+  outline-color: #424242;
+  outline-style: solid;
+  outline-width: 3px;
+}
+
 .login__input:last-of-type {
   margin-bottom: 10px;
 }

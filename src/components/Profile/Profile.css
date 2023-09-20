@@ -60,6 +60,7 @@
 
   flex-grow: 1;
   padding: 15px 0 15px 15px;
+  transition: all 0.3s;
 }
 
 .profile__input:focus {

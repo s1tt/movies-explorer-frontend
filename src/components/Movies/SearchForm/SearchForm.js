@@ -7,7 +7,15 @@ const SearchForm = () => {
   return (
     <form className="search-form">
       <div className="search-form__field">
-        <input type="text" className="search-form__input" placeholder="Фильм" />
+        <label htmlFor="search-form" className="search-form__label">
+          <input
+            type="text"
+            className="search-form__input"
+            placeholder="Фильм"
+            name="search-form"
+            id="search-form"
+          />
+        </label>
         <button type="submit" className="search-form__btn">
           <img className="search-form__btn-icon" src={findIco} alt="find" />
         </button>

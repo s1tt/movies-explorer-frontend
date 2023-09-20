@@ -7,7 +7,12 @@
 .search-form__field {
   display: flex;
   width: 100%;
+  gap: 40px;
   border-bottom: 1px solid #424242;
+}
+
+.search-form__label {
+  width: 100%;
 }
 
 .search-form__input {
@@ -16,17 +21,29 @@
   padding: 13px 0;
   background-color: inherit;
   border: none;
-  color: #8b8b8b;
+  color: #fff;
   font-feature-settings:
     'clig' off,
     'liga' off;
   font-size: 28px;
   font-weight: 500;
   line-height: normal;
+  transition: all 0.5s;
+}
+
+.search-form__input::placeholder {
+  color: #8b8b8b;
 }
 
 .search-form__input:focus {
   outline: none;
+  background-color: #2f2f2f;
+  border-radius: 8px;
+  padding: 13px;
+}
+
+.search-form__input:focus ~ .search-form__field {
+  border-bottom: 1px solid #fff;
 }
 
 .search-form__btn {
