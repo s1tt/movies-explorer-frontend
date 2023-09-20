@@ -8,7 +8,11 @@ const MoviesCard = ({ data }) => {
   const location = useLocation();
   return (
     <article className="card">
-      <img className="card__img" src={process.env.PUBLIC_URL + data.image} alt="card1" />
+      <img
+        className="card__img"
+        src={process.env.PUBLIC_URL + data.image}
+        alt={`Картинка к фильму ${data.title}`}
+      />
       <div className="card__about">
         <div className="card__description">
           <h2 className="card__title">{data.title}</h2>
@@ -27,7 +31,11 @@ const MoviesCard = ({ data }) => {
           </label>
         ) : (
           <button className="card__cross-btn" type="button">
-            <img className="card__cross-ico" src={cardCrossIco} alt="cross-ico" />
+            <img
+              className="card__cross-ico"
+              src={cardCrossIco}
+              alt="Иконка удаления из избранного"
+            />
           </button>
         )}
       </div>

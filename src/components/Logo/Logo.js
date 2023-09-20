@@ -14,7 +14,7 @@ const Logo = () => {
 
   return (
     <Link to="/" className={`logo ${isAuthPage ? 'logo_auth' : ''}`}>
-      <img className="logo__image" src={logo} alt="Logo" />
+      <img className="logo__image" src={logo} alt="Логотип сайта" />
     </Link>
   );
 };

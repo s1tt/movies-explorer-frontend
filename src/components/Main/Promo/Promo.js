@@ -24,7 +24,11 @@ function Promo() {
           </Link>
         </div>
         <div className="promo__img-wrapper">
-          <img src={promoImg} alt="Web Image" className="promo__img" />
+          <img
+            src={promoImg}
+            alt="Иконка, состоящая из слов web в форме земного шара"
+            className="promo__img"
+          />
         </div>
       </div>
     </section>

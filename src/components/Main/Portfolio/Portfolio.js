@@ -16,7 +16,7 @@ const Portfolio = () => {
                 rel="noreferrer"
                 className="portfolio__item-link">
                 <span className="portfolio__item-title">Статичный сайт</span>
-                <img src={arrowIco} alt="arrow-ico" className="portfolio__item-arrow-ico" />
+                <img src={arrowIco} alt="Иконка стрелки" className="portfolio__item-arrow-ico" />
               </a>
             </li>
             <li className="portfolio__item">
@@ -26,7 +26,7 @@ const Portfolio = () => {
                 rel="noreferrer"
                 className="portfolio__item-link">
                 <span className="portfolio__item-title">Адаптивный сайт</span>
-                <img src={arrowIco} alt="arrow-ico" className="portfolio__item-arrow-ico" />
+                <img src={arrowIco} alt="Иконка стрелки" className="portfolio__item-arrow-ico" />
               </a>
             </li>
             <li className="portfolio__item">
@@ -36,7 +36,7 @@ const Portfolio = () => {
                 rel="noreferrer"
                 className="portfolio__item-link">
                 <span className="portfolio__item-title">Одностраничное приложение</span>
-                <img src={arrowIco} alt="arrow-ico" className="portfolio__item-arrow-ico" />
+                <img src={arrowIco} alt="Иконка стрелки" className="portfolio__item-arrow-ico" />
               </a>
             </li>
           </ul>

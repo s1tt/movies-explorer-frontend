@@ -30,7 +30,7 @@ const AccountBtn = ({ closeBurger }) => {
             currentDevise === 'desktop' ? '' : 'account-btn__ico_mobile'
           }`}
           src={accountIco}
-          alt="accountIco"
+          alt="Иконка аккаунта"
         />
       </div>
     </Link>

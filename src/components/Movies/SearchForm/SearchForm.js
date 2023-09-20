@@ -20,7 +20,7 @@ const SearchForm = () => {
           />
         </label>
         <button type="submit" className="search-form__btn">
-          <img className="search-form__btn-icon" src={findIco} alt="find" />
+          <img className="search-form__btn-icon" src={findIco} alt="Иконка поиска фильма" />
         </button>
       </div>
       <FilterCheckbox />
