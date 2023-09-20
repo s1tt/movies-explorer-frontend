@@ -17,11 +17,6 @@
   margin-top: 56px;
 }
 
-.movies__filter {
-  display: flex;
-  margin-top: 32px;
-}
-
 @media screen and (max-width: 768px) {
   .movies__wrapper {
     padding-left: calc(var(--padding-tablet) - 20px);
@@ -49,15 +44,5 @@
     margin-top: 77px;
     padding-left: 4px;
     padding-right: 4px;
-  }
-
-  .movies__filter {
-    margin-top: 30px;
-    margin-right: 2px;
-  }
-
-  .movies__filter {
-    justify-content: center;
-    margin-top: 41px;
   }
 }

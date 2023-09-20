@@ -63,6 +63,9 @@ input[type='checkbox']:checked + .filter__tumbler:after {
 }
 
 @media screen and (max-width: 520px) {
+  .filter {
+    margin: 0 auto;
+  }
   .filter__label {
     flex-direction: row-reverse;
   }
