@@ -1,8 +1,9 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import Header from '../Header/Header';
+import { Link } from 'react-router-dom';
 import './Profile.css';
 
-const Profile = () => {
+const Profile = ({ setIsLoggedIn }) => {
   function onSubmit(e) {
     e.preventDefault();
     console.log('edit profile');
@@ -10,7 +11,6 @@ const Profile = () => {
 
   return (
     <>
-      <Header />
       <section className="profile">
         <div className="profile__wrapper">
           <h1 className="profile__title">Привет, Виталий!</h1>
@@ -49,13 +49,17 @@ const Profile = () => {
               Редактировать
             </button>
           </form>
-          <button type="button" className="profile__btn-logout">
+          <Link to="/" className="profile__btn-logout" onClick={() => setIsLoggedIn(false)}>
             Выйти из аккаунта
-          </button>
+          </Link>
         </div>
       </section>
     </>
   );
+};
+
+Profile.propTypes = {
+  setIsLoggedIn: PropTypes.func
 };
 
 export default Profile;

@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../Logo/Logo';
 import './Register.css';
 
-const Register = () => {
+const Register = ({ setIsLoggedIn }) => {
   function onSubmit(e) {
     e.preventDefault();
     console.log('register');
@@ -48,9 +49,12 @@ const Register = () => {
             className="register__input register__input-error"
           />
           <p className="register__error register__error_active">Что-то пошло не так...</p>
-          <button type="submit" className="register__btn">
+          {/* <button type="submit" className="register__btn">
             Зарегистрироваться
-          </button>
+          </button> */}
+          <Link to="/movies" className="register__btn" onClick={() => setIsLoggedIn(true)}>
+            Зарегистрироваться
+          </Link>
         </form>
         <p className="register__signin-question">
           Уже зарегистрированы?{' '}
@@ -61,6 +65,10 @@ const Register = () => {
       </div>
     </section>
   );
+};
+
+Register.propTypes = {
+  setIsLoggedIn: PropTypes.func
 };
 
 export default Register;

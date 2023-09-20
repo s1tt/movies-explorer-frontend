@@ -2,7 +2,6 @@
   background-color: var(--third-bg-color);
   display: flex;
   justify-content: center;
-  /* padding-top: 100px; */
 }
 
 .techs__wrapper {
@@ -56,9 +55,7 @@
 .techs__list {
   margin: 0;
   padding: 0;
-  /* margin-bottom: 100px; */
   display: flex;
-  /* grid-template-columns: repeat(auto-fill, 40px); */
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
@@ -79,10 +76,6 @@
 }
 
 @media screen and (max-width: 990px) {
-  .techs {
-    /* padding-top: 90px; */
-  }
-
   .techs__wrapper {
     padding-left: var(--padding-tablet);
     padding-right: var(--padding-tablet);
@@ -115,10 +108,6 @@
 }
 
 @media screen and (max-width: 520px) {
-  .techs {
-    /* padding-top: 70px; */
-  }
-
   .techs__wrapper {
     padding-left: var(--padding-mobile);
     padding-right: var(--padding-mobile);

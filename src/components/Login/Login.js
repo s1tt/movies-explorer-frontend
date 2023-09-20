@@ -1,20 +1,16 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../Logo/Logo';
 import './Login.css';
 
-const Login = () => {
-  function onSubmit(e) {
-    e.preventDefault();
-    console.log('login');
-  }
-
+const Login = ({ setIsLoggedIn }) => {
   return (
     <section className="login">
       <div className="login__wrapper">
         <Logo className="login__logo" />
         <h1 className="login__title">Рады видеть!</h1>
-        <form className="login__form" onSubmit={onSubmit}>
+        <form className="login__form">
           <label htmlFor="email" className="login__label">
             E-mail
           </label>
@@ -37,9 +33,9 @@ const Login = () => {
             className="login__input login__input-error"
           />
           <p className="login__error login__error_active">Что-то пошло не так...</p>
-          <button type="submit" className="login__btn">
+          <Link to="/movies" className="login__btn" onClick={() => setIsLoggedIn(true)}>
             Войти
-          </button>
+          </Link>
         </form>
         <p className="login__signin-question">
           Ещё не зарегистрированы?{' '}
@@ -50,6 +46,10 @@ const Login = () => {
       </div>
     </section>
   );
+};
+
+Login.propTypes = {
+  setIsLoggedIn: PropTypes.func
 };
 
 export default Login;

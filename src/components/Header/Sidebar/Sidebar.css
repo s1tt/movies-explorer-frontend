@@ -1,110 +1,47 @@
-/* Position and sizing of burger button */
-.bm-burger-button {
+.sidebar {
   position: fixed;
-  width: 44px;
-  height: 44px;
-  right: 30px;
-  top: 16px;
-}
-
-/* Color/shape of burger icon bars */
-.bm-burger-bars {
-  background: #ffffff;
-}
-
-/* Color/shape of burger icon bars on hover*/
-.bm-burger-bars-hover {
-  opacity: 0.7;
-}
-
-/* Position and sizing of clickable cross button */
-.bm-cross-button {
-  height: 28px !important;
-  width: 28px !important;
-  top: 23px !important;
-  right: 25px !important;
-
-  &:hover {
-    opacity: 0.7;
-  }
-}
-
-/* Color/shape of close button cross */
-/* .bm-cross {
-  background: #ffffff;
-} */
-
-/*
-Sidebar wrapper styles
-Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
-*/
-.bm-menu-wrap {
-  position: fixed;
-  height: 100%;
+  height: 100vh;
+  background-color: var(--second-bg-color);
+  width: 520px;
+  top: 0;
+  right: 0;
   bottom: 0;
+  z-index: 10;
+  transform: translateX(100%);
+  transition: all 0.3s;
 }
 
-/* General sidebar styles */
-.bm-menu {
-  background: #202020;
-  padding: 160px 90px 90px;
+.sidebar_open {
+  transform: translateX(0);
 }
 
-.menu-item {
-  color: #fff;
-  text-align: center;
-  font-feature-settings:
-    'clig' off,
-    'liga' off;
-  font-size: 18px;
-  font-weight: 500;
-}
-
-/* Morph shape necessary with bubble or elastic */
-.bm-morph-shape {
-  fill: #373a47;
-}
-
-/* Wrapper for item list */
-.bm-item-list {
-  color: #b8b7ad;
+.sidebar__wrapper {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
+  padding: 160px 0 90px;
+  height: 100%;
 }
 
-/* Individual item */
-.bm-item {
-  display: inline-block;
-  text-align: center;
-}
-
-/* Styling of overlay */
-.bm-overlay {
-  background: rgba(0, 0, 0, 0.3);
+.sidebar__blackout {
+  content: '';
+  z-index: 9;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 @media screen and (max-width: 520px) {
-  .bm-burger-button {
-    width: 40px;
-    height: 40px;
-    right: 15px;
-    top: 17px;
+  .sidebar {
+    width: 100vw;
   }
 
-  /* General sidebar styles */
-  .bm-menu {
+  .sidebar__wrapper {
     padding: 144px 0 46px;
-  }
-
-  .bm-cross-button {
-    height: 28px !important;
-    width: 28px !important;
-    top: 12px !important;
-    right: 16px !important;
-  }
-
-  .bm-cross-button:hover {
-    opacity: 0.7;
   }
 }

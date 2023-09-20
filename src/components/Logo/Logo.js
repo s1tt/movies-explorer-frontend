@@ -6,8 +6,14 @@ import './Logo.css';
 const Logo = () => {
   const location = useLocation();
 
+  const isAuthPage =
+    location.pathname !== '/' &&
+    location.pathname !== '/movies' &&
+    location.pathname !== '/profile' &&
+    location.pathname !== '/saved-movies';
+
   return (
-    <Link to="/" className={`logo__link ${location.pathname !== '/' ? 'logo__link-auth' : ''}`}>
+    <Link to="/" className={`logo__link ${isAuthPage ? 'logo__link-auth' : ''}`}>
       <img className="logo" src={logo} alt="Logo" />
     </Link>
   );

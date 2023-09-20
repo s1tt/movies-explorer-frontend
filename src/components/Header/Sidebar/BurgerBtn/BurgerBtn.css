@@ -1,0 +1,21 @@
+.burger {
+  position: fixed;
+  right: 30px;
+  top: 15px;
+  z-index: 11;
+  width: 44px;
+  height: 44px;
+  transition: all 0.3s;
+}
+
+.burger_open {
+  right: 18px;
+  top: 13px;
+}
+
+@media screen and (max-width: 520px) {
+  .burger_open {
+    right: 10px;
+    top: 4px;
+  }
+}

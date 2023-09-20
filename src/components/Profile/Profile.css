@@ -100,17 +100,19 @@
 }
 
 .profile__btn-logout {
+  text-decoration: none;
   color: #ee3465;
   font-size: 13px;
   font-weight: 500;
   line-height: normal;
 
   display: flex;
+  justify-content: center;
   background-color: transparent;
   border: none;
   cursor: pointer;
   padding: 0;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   transition: opacity 0.3s;
 }
 

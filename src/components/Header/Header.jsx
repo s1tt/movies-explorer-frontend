@@ -1,89 +1,47 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import accountIco from '../../images/icon_account.png';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import './Header.css';
 
 import { useCurrentDevice } from '../../contexts/WindowWidthContext.js';
 import Logo from '../Logo/Logo';
-import Sidebar from './Sidebar/Sidebar.js';
+import NavTab from '../Main/NavTab/NavTab';
+import AccountBtn from './AccountBtn/AccountBtn';
+import Auth from './Auth/Auth';
+import BurgerBtn from './Sidebar/BurgerBtn/BurgerBtn';
+import Sidebar from './Sidebar/Sidebar';
 
-function Header() {
-  const [isBurgerTime, setIsBurgerTime] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+function Header({ isLoggedIn }) {
   const currentDevice = useCurrentDevice();
   const location = useLocation();
-  // const isLoggedIn = useState(false);
-
-  useEffect(() => {
-    setIsBurgerTime(currentDevice !== 'desktop');
-    setIsMobile(currentDevice === 'mobile');
-    console.log(isBurgerTime, currentDevice);
-  }, [currentDevice]);
-
-  function checkLocation(pathname, newClassName) {
-    if (location.pathname === pathname) {
-      return newClassName;
-    } else {
-      return '';
-    }
-  }
+  const [isBurgerOpen, setIsBurgerOpen] = useState(false);
 
   return (
-    <header id="header" className={`header ${checkLocation('/', 'header_page_main')}`}>
+    <header id="header" className={`header ${location.pathname === '/' ? 'header_page_main' : ''}`}>
       <div className="header__wrapper">
         <Logo />
 
-        {isBurgerTime ? (
-          <Sidebar isMobile={isMobile} pageWrapId={'header'} outerContainerId={'header'} />
+        {isLoggedIn ? (
+          currentDevice !== 'desktop' ? (
+            <>
+              <BurgerBtn open={isBurgerOpen} setOpen={setIsBurgerOpen} />
+              <Sidebar open={isBurgerOpen} setOpen={setIsBurgerOpen} />
+            </>
+          ) : (
+            <>
+              <NavTab />
+              <AccountBtn />
+            </>
+          )
         ) : (
-          <>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item">
-                  <Link
-                    to="/movies"
-                    className={`header__nav-link ${checkLocation(
-                      '/movies',
-                      'header__nav-link_active'
-                    )}`}>
-                    Фильмы
-                  </Link>
-                </li>
-                <li className="header__nav-item">
-                  <Link
-                    to="/saved-movies"
-                    className={`header__nav-link ${checkLocation(
-                      '/saved-movies',
-                      'header__nav-link_active'
-                    )}`}>
-                    Сохранённые фильмы
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-            <Link
-              className={`header__account ${checkLocation('/profile', 'header__nav-link_active')}`}
-              to="/profile">
-              <span
-                className={`header__account-text ${checkLocation(
-                  '/profile',
-                  'header__nav-link_active'
-                )}`}>
-                Аккаунт
-              </span>
-              <div
-                className={`header__account-circle ${checkLocation(
-                  '/',
-                  'header__account-circle_page_main'
-                )} ${checkLocation('/profile', 'header__nav-link_active')}`}>
-                <img className="header__account-ico" src={accountIco} alt="accountIco" />
-              </div>
-            </Link>
-          </>
+          <Auth />
         )}
       </div>
     </header>
   );
 }
 
+Header.propTypes = {
+  isLoggedIn: PropTypes.bool
+};
 export default Header;

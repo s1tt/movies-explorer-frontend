@@ -2,7 +2,7 @@
   background-color: var(--second-bg-color);
   display: flex;
   justify-content: center;
-  min-height: calc(100vh - 251px);
+  flex-grow: 1;
 }
 
 .movies__wrapper {

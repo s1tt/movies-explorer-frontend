@@ -63,13 +63,13 @@
 }
 
 .login__btn {
+  text-decoration: none;
   color: #fff;
   font-size: 14px;
   font-weight: 500;
   line-height: normal;
   background-color: #4285f4;
   padding: 15px 0;
-  border: none;
   margin-bottom: 16px;
   margin-top: 158px;
   text-align: center;
