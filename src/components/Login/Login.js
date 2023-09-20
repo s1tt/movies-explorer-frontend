@@ -20,6 +20,7 @@ const Login = ({ setIsLoggedIn }) => {
             id="email"
             placeholder="Введите ваш e-mail"
             className="login__input"
+            required="required"
           />
           <label htmlFor="password" className="login__label">
             Пароль
@@ -29,8 +30,10 @@ const Login = ({ setIsLoggedIn }) => {
             name="password"
             id="password"
             placeholder="Введите ваш пароль"
-            minLength="3"
+            minLength={3}
+            maxLength={20}
             className="login__input login__input-error"
+            required="required"
           />
           <p className="login__error login__error_active">Что-то пошло не так...</p>
           <Link to="/movies" className="login__btn" onClick={() => setIsLoggedIn(true)}>

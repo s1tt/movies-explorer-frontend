@@ -23,9 +23,11 @@ const Register = ({ setIsLoggedIn }) => {
             type="text"
             name="name"
             id="name"
-            minLength="3"
+            minLength={3}
+            maxLength={20}
             className="register__input"
             placeholder="Введите ваше имя"
+            required="required"
           />
           <label htmlFor="email" className="register__label">
             E-mail
@@ -36,6 +38,7 @@ const Register = ({ setIsLoggedIn }) => {
             id="email"
             placeholder="Введите ваш e-mail"
             className="register__input"
+            required="required"
           />
           <label htmlFor="password" className="register__label">
             Пароль
@@ -44,9 +47,11 @@ const Register = ({ setIsLoggedIn }) => {
             type="password"
             name="password"
             id="password"
-            minLength="3"
+            minLength={3}
+            maxLength={20}
             placeholder="Придумайте пароль"
             className="register__input register__input-error"
+            required="required"
           />
           <p className="register__error register__error_active">Что-то пошло не так...</p>
           <Link to="/movies" className="register__btn" onClick={() => setIsLoggedIn(true)}>

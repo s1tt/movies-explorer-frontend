@@ -24,8 +24,10 @@ const Profile = ({ setIsLoggedIn }) => {
                   id="name"
                   className="profile__input"
                   defaultValue="Виталий"
-                  minLength="3"
+                  minLength={3}
+                  maxLength={20}
                   placeholder="Напишите свое имя"
+                  required="required"
                 />
               </label>
 
@@ -38,6 +40,7 @@ const Profile = ({ setIsLoggedIn }) => {
                   className="profile__input"
                   defaultValue="pochta@yandex.ru"
                   placeholder="Напишите ваш e-mail"
+                  required="required"
                 />
               </label>
             </div>

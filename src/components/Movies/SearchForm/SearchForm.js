@@ -14,6 +14,9 @@ const SearchForm = () => {
             placeholder="Фильм"
             name="search-form"
             id="search-form"
+            required="required"
+            minLength={2}
+            maxLength={20}
           />
         </label>
         <button type="submit" className="search-form__btn">
