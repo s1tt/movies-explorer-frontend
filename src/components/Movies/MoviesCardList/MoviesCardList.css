@@ -10,8 +10,8 @@
   margin: 0;
   list-style-type: none;
   display: flex;
+  justify-content: flex-start;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 32px 20px;
   margin-top: 117px;
 }
@@ -40,6 +40,6 @@
 @media screen and (max-width: 520px) {
   .movies-card-list__items {
     margin-top: 89px;
-    gap: 30px;
+    gap: 19px;
   }
 }

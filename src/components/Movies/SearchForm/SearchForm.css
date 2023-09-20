@@ -47,6 +47,7 @@
 }
 
 .search-form__btn {
+  display: flex;
   padding: 0;
   background-color: inherit;
   border: none;
@@ -60,7 +61,14 @@
 }
 
 @media screen and (max-width: 520px) {
+  .search-form {
+    gap: 41px;
+  }
   .search-form__input {
     font-size: 18px;
+  }
+
+  .search-form__field {
+    padding-bottom: 3px;
   }
 }

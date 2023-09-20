@@ -1,18 +1,9 @@
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import { Divide as Hamburger } from 'hamburger-react';
 import PropTypes from 'prop-types';
 import React from 'react';
 import './BurgerBtn.css';
 
-const BurgerBtn = ({ open, setOpen }) => {
-  const toggleScrollLock = () => {
-    console.log(open + '!!!!!!!!!!!!!!!!');
-    if (!open) {
-      disableBodyScroll(document.body);
-    } else {
-      enableBodyScroll(document.body);
-    }
-  };
+const BurgerBtn = ({ open, setOpen, toggleScrollLock }) => {
   return (
     <div className={`burger ${open ? 'burger_open' : ''}`} onClick={toggleScrollLock}>
       <Hamburger
@@ -29,6 +20,7 @@ const BurgerBtn = ({ open, setOpen }) => {
 
 BurgerBtn.propTypes = {
   open: PropTypes.bool,
-  setOpen: PropTypes.func
+  setOpen: PropTypes.func,
+  toggleScrollLock: PropTypes.func
 };
 export default BurgerBtn;

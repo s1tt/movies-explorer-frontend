@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './Header.css';
 
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import { useCurrentDevice } from '../../contexts/WindowWidthContext.js';
 import Logo from '../Logo/Logo';
 import NavTab from '../Main/NavTab/NavTab';
@@ -16,6 +17,15 @@ function Header({ isLoggedIn }) {
   const location = useLocation();
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
 
+  const toggleScrollLock = () => {
+    console.log(isBurgerOpen + '!!!!!!!!!!!!!!!!');
+    if (!isBurgerOpen) {
+      disableBodyScroll(document.body);
+    } else {
+      enableBodyScroll(document.body);
+    }
+  };
+
   return (
     <header id="header" className={`header ${location.pathname === '/' ? 'header_page_main' : ''}`}>
       <div className="header__wrapper">
@@ -24,8 +34,16 @@ function Header({ isLoggedIn }) {
         {isLoggedIn ? (
           currentDevice !== 'desktop' ? (
             <>
-              <BurgerBtn open={isBurgerOpen} setOpen={setIsBurgerOpen} />
-              <Sidebar open={isBurgerOpen} setOpen={setIsBurgerOpen} />
+              <BurgerBtn
+                open={isBurgerOpen}
+                setOpen={setIsBurgerOpen}
+                toggleScrollLock={toggleScrollLock}
+              />
+              <Sidebar
+                open={isBurgerOpen}
+                setOpen={setIsBurgerOpen}
+                toggleScrollLock={toggleScrollLock}
+              />
             </>
           ) : (
             <>

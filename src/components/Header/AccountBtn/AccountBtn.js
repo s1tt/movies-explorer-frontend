@@ -24,7 +24,11 @@ const AccountBtn = ({ closeBurger }) => {
       <div
         className={`account-btn__circle ${
           currentDevise === 'desktop' ? '' : 'account-btn__circle_mobile'
-        } ${location.pathname === '/' ? 'account-btn__circle_page_main' : ''}`}>
+        } ${
+          location.pathname === '/' && currentDevise === 'desktop'
+            ? 'account-btn__circle_page_main'
+            : ''
+        }`}>
         <img
           className={`account-btn__ico ${
             currentDevise === 'desktop' ? '' : 'account-btn__ico_mobile'

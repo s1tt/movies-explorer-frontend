@@ -11,5 +11,11 @@
 }
 
 .logo_auth {
-  margin-bottom: 37px;
+  margin-bottom: 40px;
+}
+
+@media screen and (max-width: 520px) {
+  .logo_auth {
+    margin-bottom: 50px;
+  }
 }

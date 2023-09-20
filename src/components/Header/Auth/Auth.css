@@ -22,3 +22,14 @@
   color: #000;
   background-color: #3ddc84;
 }
+
+@media screen and (max-width: 520px) {
+  .auth {
+    gap: 2px;
+  }
+
+  .auth__btn {
+    font-size: 10px;
+    padding: 5px 12px;
+  }
+}

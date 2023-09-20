@@ -4,13 +4,17 @@ import NavTab from '../../Main/NavTab/NavTab';
 import AccountBtn from '../AccountBtn/AccountBtn';
 import './Sidebar.css';
 
-const Sidebar = ({ open, setOpen }) => {
+const Sidebar = ({ open, setOpen, toggleScrollLock }) => {
   function closeBurger(e) {
-    console.log(e.currentTarget);
-    e.target.className.includes('nav__link_mobile_active') ||
-    e.currentTarget.className.includes('account-btn_active')
-      ? e.preventDefault()
-      : setOpen(!open);
+    if (
+      e.target.className.includes('nav__link_mobile_active') ||
+      e.currentTarget.className.includes('account-btn_active')
+    ) {
+      e.preventDefault();
+    } else {
+      setOpen(false);
+      toggleScrollLock();
+    }
   }
 
   return (
@@ -28,7 +32,8 @@ const Sidebar = ({ open, setOpen }) => {
 
 Sidebar.propTypes = {
   open: PropTypes.bool,
-  setOpen: PropTypes.func
+  setOpen: PropTypes.func,
+  toggleScrollLock: PropTypes.func
 };
 
 export default Sidebar;

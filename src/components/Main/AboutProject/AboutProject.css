@@ -1,6 +1,5 @@
 .about-project {
   background-color: var(--second-bg-color);
-  /* padding-top: 110px; */
   display: flex;
   justify-content: center;
 }
@@ -103,10 +102,9 @@
 }
 
 @media screen and (max-width: 520px) {
-  .about-project {
-    padding-top: 70px;
-  }
   .about-project__wrapper {
+    margin-top: 71px;
+    margin-bottom: 59px;
     padding-left: var(--padding-mobile);
     padding-right: var(--padding-mobile);
   }
