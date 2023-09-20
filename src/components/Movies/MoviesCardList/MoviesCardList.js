@@ -13,11 +13,17 @@ const MoviesCardList = ({ cardData }) => {
 
   return (
     <div className="movies-card-list">
-      <div className="movies-card-list__items">
-        {cardData.slice(0, deviceWidth[currentDevice].cards.initialQuantity).map((item, index) => (
-          <MoviesCard key={index} data={item} />
-        ))}
-      </div>
+      {cardData && cardData.length > 0 ? (
+        <div className="movies-card-list__items">
+          {cardData
+            .slice(0, deviceWidth[currentDevice].cards.initialQuantity)
+            .map((item, index) => (
+              <MoviesCard key={index} data={item} />
+            ))}
+        </div>
+      ) : (
+        <h2 className="movies-card-list__empty">Список фильмов пуст</h2>
+      )}
       {cardData.length > deviceWidth.desktop.cards.initialQuantity && <MoreBtn />}
     </div>
   );

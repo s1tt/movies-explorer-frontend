@@ -13,10 +13,24 @@
   margin-top: 117px;
 }
 
+.movies-card-list__empty {
+  margin: 0;
+  margin-top: 30px;
+  color: #fff;
+  text-align: center;
+  font-size: 48px;
+  font-weight: 500;
+  line-height: normal;
+}
+
 @media screen and (max-width: 768px) {
   .movies-card-list__items {
     margin-top: 129px;
     gap: 36px 30px;
+  }
+
+  .movies-card-list__empty {
+    font-size: 24px;
   }
 }
 

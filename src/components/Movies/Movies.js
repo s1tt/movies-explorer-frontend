@@ -9,7 +9,6 @@ import cardData from '../../utils/data';
 const Movies = () => {
   return (
     <>
-      {/* <Header /> */}
       <section className="movies">
         <div className="movies__wrapper">
           <div className="movies__search-form">
@@ -23,7 +22,6 @@ const Movies = () => {
           </div>
         </div>
       </section>
-      {/* <Footer /> */}
     </>
   );
 };

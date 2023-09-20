@@ -11,7 +11,7 @@ const MoviesCard = ({ data }) => {
       <img className="card__img" src={process.env.PUBLIC_URL + data.image} alt="card1" />
       <div className="card__about">
         <div className="card__description">
-          <h3 className="card__title">{data.title}</h3>
+          <h2 className="card__title">{data.title}</h2>
           <span className="card__duration-time">{data.duration}</span>
         </div>
         {location.pathname === '/movies' ? (
