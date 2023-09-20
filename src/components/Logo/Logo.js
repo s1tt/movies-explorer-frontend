@@ -13,8 +13,8 @@ const Logo = () => {
     location.pathname !== '/saved-movies';
 
   return (
-    <Link to="/" className={`logo__link ${isAuthPage ? 'logo__link-auth' : ''}`}>
-      <img className="logo" src={logo} alt="Logo" />
+    <Link to="/" className={`logo ${isAuthPage ? 'logo_auth' : ''}`}>
+      <img className="logo__image" src={logo} alt="Logo" />
     </Link>
   );
 };
