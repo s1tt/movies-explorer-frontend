@@ -8,6 +8,10 @@
   transition: all 0.3s;
 }
 
+.burger:hover {
+  opacity: 0.7;
+}
+
 .burger_open {
   right: 18px;
   top: 13px;
