@@ -1,0 +1,21 @@
+.logo__image {
+  transition: opacity 0.3s;
+}
+
+.logo__image:hover {
+  opacity: 0.7;
+}
+
+.logo {
+  display: flex;
+}
+
+.logo_auth {
+  margin-bottom: 40px;
+}
+
+@media screen and (max-width: 520px) {
+  .logo_auth {
+    margin-bottom: 50px;
+  }
+}

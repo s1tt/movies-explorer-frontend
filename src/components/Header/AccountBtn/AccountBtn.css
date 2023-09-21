@@ -1,0 +1,50 @@
+.account-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 40px;
+  background-color: transparent;
+  box-shadow: 0px 3px 14px 0px rgba(0, 0, 0, 0.08);
+  text-decoration: none;
+}
+.account-btn_active {
+  cursor: default;
+}
+.account-btn:hover .account-btn__text,
+.account-btn:hover .account-btn__circle {
+  opacity: 0.7;
+}
+
+.account-btn:hover .header__nav-link_active,
+.account-btn_active:hover .account-btn__text,
+.account-btn_active:hover .account-btn__circle {
+  opacity: 1;
+  cursor: default;
+}
+.account-btn__text {
+  color: #fff;
+  font-feature-settings:
+    'clig' off,
+    'liga' off;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 12px;
+  padding: 9.5px 0 9.5px 11px;
+  transition: opacity 0.3s;
+}
+
+.account-btn__circle {
+  width: 26px;
+  height: 26px;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 3px;
+  transition: opacity 0.3s;
+  background: #313131;
+}
+
+.account-btn__circle_page_main {
+  background: #0f4157;
+}

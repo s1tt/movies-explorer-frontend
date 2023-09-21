@@ -1,0 +1,144 @@
+.promo {
+  background-color: var(--first-bg-color);
+
+  display: flex;
+  justify-content: center;
+}
+
+.promo__wrapper {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  padding: 75px 70px;
+  max-width: var(--width-pc);
+  width: 100%;
+  box-sizing: border-box;
+  padding-left: var(--padding-pc);
+  padding-right: var(--padding-pc);
+}
+
+.promo__description {
+  display: flex;
+  flex-direction: column;
+}
+
+.promo__title {
+  margin: 0;
+  margin-bottom: 36px;
+  max-width: 640px;
+  color: #ffffff;
+  font-feature-settings:
+    'clig' off,
+    'liga' off;
+  font-size: 50px;
+  font-weight: 400;
+  line-height: 58px;
+}
+
+.promo__img {
+  width: 100%;
+  height: auto;
+}
+
+.promo__subtitle {
+  margin: 0;
+  max-width: 310px;
+  color: #ffffff;
+  font-feature-settings:
+    'clig' off,
+    'liga' off;
+  font-size: 13px;
+  opacity: 0.5;
+}
+
+.promo__more-btn {
+  align-self: baseline;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  text-decoration: none;
+  margin-top: 146px;
+  padding: 10px 20px;
+  border: 1px solid #fff;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.promo__more-btn:hover {
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 768px) {
+  .promo__wrapper {
+    flex-direction: column-reverse;
+    align-items: center;
+    padding: 0;
+    padding-top: 140px;
+
+    padding-left: var(--padding-tablet);
+    padding-right: var(--padding-tablet);
+  }
+
+  .promo__img {
+    padding-bottom: 48px;
+  }
+
+  .promo__description {
+    align-items: center;
+    text-align: center;
+  }
+
+  .promo__title {
+    max-width: 680px;
+    font-size: 40px;
+    line-height: 50px;
+    margin-bottom: 22px;
+  }
+
+  .promo__subtitle {
+    margin: 0;
+    max-width: 260px;
+  }
+
+  .promo__more-btn {
+    align-self: center;
+    margin-top: 92px;
+    margin-bottom: 76px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .promo__wrapper {
+    padding-top: 70px;
+
+    padding-left: var(--padding-mobile);
+    padding-right: var(--padding-mobile);
+  }
+
+  .promo__img {
+    padding-bottom: 44px;
+  }
+
+  .promo__description {
+    align-items: center;
+    text-align: center;
+  }
+
+  .promo__title {
+    max-width: 300px;
+    font-size: 30px;
+    line-height: 38px;
+    letter-spacing: -1.2px;
+    margin-bottom: 24px;
+  }
+
+  .promo__more-btn {
+    margin-top: 80px;
+    margin-bottom: 30px;
+  }
+
+  .promo__img {
+    width: 210px;
+  }
+}

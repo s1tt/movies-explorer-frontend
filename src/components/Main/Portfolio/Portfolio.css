@@ -1,0 +1,118 @@
+.portfolio {
+  background-color: var(--second-bg-color);
+  display: flex;
+  justify-content: center;
+  padding-bottom: 125px;
+}
+
+.portfolio__wrapper {
+  max-width: var(--width-pc);
+  width: 100%;
+  box-sizing: border-box;
+  padding-left: var(--padding-pc);
+  padding-right: var(--padding-pc);
+}
+
+.portfolio__title {
+  margin: 0;
+  margin-bottom: 50px;
+  color: #8b8b8b;
+  font-feature-settings:
+    'clig' off,
+    'liga' off;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.portfolio__list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.portfolio__item {
+  padding-bottom: 19px;
+  border-bottom: 1px solid #424242;
+}
+
+.portfolio__item:last-child {
+  padding: 0;
+  border: none;
+}
+
+.portfolio__item-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+  color: #fff;
+  font-size: 30px;
+  line-height: 50px;
+  letter-spacing: -1.2px;
+  transition: opacity 0.3s;
+}
+
+.portfolio__item-arrow-ico {
+  margin-right: 7px;
+  margin-top: 8px;
+}
+
+.portfolio__item-link:hover {
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 768px) {
+  .portfolio {
+    padding-bottom: 90px;
+  }
+
+  .portfolio__wrapper {
+    padding-left: var(--padding-tablet);
+    padding-right: var(--padding-tablet);
+  }
+
+  .portfolio__title {
+    margin-bottom: 48px;
+  }
+
+  .portfolio__item-link {
+    font-size: 28px;
+    letter-spacing: -1.12px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .portfolio {
+    padding-bottom: 70px;
+  }
+
+  .portfolio__wrapper {
+    padding-left: calc(var(--padding-mobile) - 4px);
+    padding-right: calc(var(--padding-mobile) - 4px);
+  }
+
+  .portfolio__title {
+    margin-bottom: 40px;
+    font-size: 14px;
+  }
+
+  .portfolio__item {
+    border-bottom: 1px solid #e6e6e6;
+  }
+
+  .portfolio__item-arrow-ico {
+    width: 12px;
+    margin-right: 4px;
+    margin-top: 0px;
+  }
+
+  .portfolio__item-link {
+    font-size: 18px;
+    letter-spacing: -0.72px;
+    line-height: 28px;
+  }
+}

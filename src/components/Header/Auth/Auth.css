@@ -1,0 +1,35 @@
+.auth {
+  display: flex;
+  gap: 11px;
+}
+
+.auth__btn {
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  padding: 8px 20px;
+  border-radius: 3px;
+  transition: 0.3s;
+}
+.auth__btn:hover {
+  opacity: 0.7;
+}
+.auth__btn-signup {
+  color: #fff;
+}
+.auth__btn-signin {
+  color: #000;
+  background-color: #3ddc84;
+}
+
+@media screen and (max-width: 520px) {
+  .auth {
+    gap: 2px;
+  }
+
+  .auth__btn {
+    font-size: 10px;
+    padding: 5px 12px;
+  }
+}

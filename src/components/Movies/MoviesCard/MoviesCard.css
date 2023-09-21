@@ -1,0 +1,120 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 270px;
+  overflow: hidden;
+  border-radius: 10px;
+  background-color: #222;
+  filter: drop-shadow(0px 16px 24px rgba(0, 0, 0, 0.05));
+}
+
+.card__title {
+  color: #fff;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin: 0;
+  max-width: 206px;
+}
+
+.card__about {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 12px;
+}
+
+.card__description {
+  display: flex;
+  flex-flow: column;
+  gap: 10px;
+}
+
+.card__title {
+  margin: 0;
+  color: #fff;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.card__duration-time {
+  color: #8b8b8b;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.card__favorite-checkbox-label {
+  display: block;
+  position: relative;
+  right: 16px;
+  cursor: pointer;
+}
+
+.card__favorite-checkbox-label input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.card__favorite-checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 16px;
+  width: 16px;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: opacity 0.3s;
+}
+
+.card__favorite-checkmark:hover {
+  opacity: 0.7;
+}
+
+.card__favorite-checkmark:after {
+  content: '';
+  position: absolute;
+  display: block;
+  left: 2px;
+  top: 2px;
+  width: 12px;
+  height: 12px;
+  background-color: #313131;
+  border-radius: 50%;
+}
+
+.card__favorite-checkbox-label input:checked ~ .card__favorite-checkmark:after {
+  background-color: #2be080;
+}
+
+.card__cross-btn {
+  display: flex;
+  padding: 0;
+  border: none;
+  background: inherit;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: opacity 0.3s;
+}
+
+.card__cross-btn:hover {
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    width: 339px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .card {
+    width: 300px;
+  }
+}
