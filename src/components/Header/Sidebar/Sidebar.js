@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import Blackout from '../../Blackout/Blackout';
 import NavTab from '../../Main/NavTab/NavTab';
 import AccountBtn from '../AccountBtn/AccountBtn';
 import './Sidebar.css';
@@ -25,7 +26,7 @@ const Sidebar = ({ open, setOpen, toggleScrollLock }) => {
           <AccountBtn closeBurger={closeBurger} />
         </div>
       </div>
-      {open && <div className="sidebar__blackout "></div>}
+      {open && <Blackout />}
     </>
   );
 };
