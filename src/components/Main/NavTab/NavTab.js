@@ -7,7 +7,7 @@ import './NavTab.css';
 
 const NavTab = ({ closeBurger }) => {
   const location = useLocation();
-  const currentDevice = useCurrentDevice();
+  const currentDevice = useCurrentDevice().device;
 
   function checkClassNameForElement(elementType, pathname) {
     const isActive = location.pathname === pathname;

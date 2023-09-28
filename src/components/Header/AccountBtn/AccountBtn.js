@@ -6,7 +6,7 @@ import accountIco from '../../../images/icon_account.svg';
 import './AccountBtn.css';
 
 const AccountBtn = ({ closeBurger }) => {
-  const currentDevise = useCurrentDevice();
+  const currentDevise = useCurrentDevice().device;
   const location = useLocation();
   return (
     <Link

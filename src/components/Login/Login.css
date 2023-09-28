@@ -31,18 +31,6 @@
   margin-bottom: 10px;
 }
 
-.login__error {
-  margin: 0;
-  color: #ee3465;
-  font-size: 10px;
-  line-height: normal;
-  visibility: hidden;
-}
-
-.login__error_active {
-  visibility: visible;
-}
-
 .login__input {
   color: #fff;
   font-size: 13px;
@@ -64,12 +52,15 @@
   margin-bottom: 10px;
 }
 
-.login__input-error {
+.login__input-error,
+.login__input-error:focus {
   color: #ee3465;
+  outline-color: #ee3465;
 }
 
 .login__btn {
   text-decoration: none;
+  border: none;
   color: #fff;
   font-size: 14px;
   font-weight: 500;
@@ -77,10 +68,16 @@
   background-color: #4285f4;
   padding: 15px 0;
   margin-bottom: 16px;
-  margin-top: 158px;
+  margin-top: 169px;
   text-align: center;
   border-radius: 3px;
   transition: opacity 0.3s;
+}
+
+.login__btn:disabled:hover,
+.login__btn:disabled {
+  opacity: 0.6;
+  cursor: default;
 }
 
 .login__btn:hover {
@@ -139,7 +136,7 @@
   }
 
   .login__btn {
-    margin-top: 245px;
+    margin-top: 257px;
     font-size: 12px;
   }
 

@@ -21,11 +21,11 @@ const WindowWidthProvider = ({ children }) => {
 
   const getCurrentDevice = () => {
     if (windowWidth > deviceWidth.tablet.width) {
-      return 'desktop';
+      return { device: 'desktop', width: windowWidth };
     } else if (windowWidth <= deviceWidth.tablet.width && windowWidth > deviceWidth.mobile.width) {
-      return 'tablet';
+      return { device: 'tablet', width: windowWidth };
     } else {
-      return 'mobile';
+      return { device: 'mobile', width: windowWidth };
     }
   };
 

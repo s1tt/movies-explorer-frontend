@@ -13,12 +13,11 @@ import BurgerBtn from './Sidebar/BurgerBtn/BurgerBtn';
 import Sidebar from './Sidebar/Sidebar';
 
 function Header({ isLoggedIn }) {
-  const currentDevice = useCurrentDevice();
+  const currentDevice = useCurrentDevice().device;
   const location = useLocation();
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
 
   const toggleScrollLock = () => {
-    console.log(isBurgerOpen + '!!!!!!!!!!!!!!!!');
     if (!isBurgerOpen) {
       disableBodyScroll(document.body);
     } else {

@@ -1,38 +1,131 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useCurrentDevice } from '../../../contexts/WindowWidthContext';
+import { cardsOnDeviceWidth } from '../../../utils/constants';
+import MoreBtn from '../MoreBtn/MoreBtn';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css';
 
-import { deviceWidth } from '../../../utils/constants';
-import MoreBtn from '../MoreBtn/MoreBtn';
+const MoviesCardList = ({
+  isShortMoviesChecked,
+  currentLocation,
+  isLoading,
+  setIsLoading,
+  filteredMovies,
+  setMovies,
+  moviesOnThePage,
+  setMoviesOnThePage,
+  shortMovies,
+  cardsInARow,
+  setCardsInARow,
+  maxInitialCardsOnThePage,
+  setMaxInitialCardsOnThePage,
+  isMoviesFound,
+  setIsCardLikeRequested,
+  isCardLikeRequested,
+  setIsPopUpOpened,
+  setPopUpMessages
+}) => {
+  const { width } = useCurrentDevice();
 
-import { useCurrentDevice } from '../../../contexts/WindowWidthContext';
+  useEffect(() => {
+    let newCardsInARow = 1;
+    let newMaxInitialCardsOnThePage = 5;
 
-const MoviesCardList = ({ cardData }) => {
-  const currentDevice = useCurrentDevice();
+    if (width >= cardsOnDeviceWidth.fourCardsInARow.width) {
+      newCardsInARow = 4;
+      newMaxInitialCardsOnThePage = 16;
+    } else if (width >= cardsOnDeviceWidth.threeCardsInARow.width) {
+      newCardsInARow = 3;
+      newMaxInitialCardsOnThePage = 12;
+    } else if (width >= cardsOnDeviceWidth.twoCardsInARow.width) {
+      newCardsInARow = 2;
+      newMaxInitialCardsOnThePage = 8;
+    }
+
+    setCardsInARow(newCardsInARow);
+    setMaxInitialCardsOnThePage(newMaxInitialCardsOnThePage);
+  }, [width]); // Этот эффект выполнится каждый раз, когда значение ширины экрана изменится, отвечает за расчет количества карточек в строку и при изменении экрана
 
   return (
     <div className="movies-card-list">
-      {cardData && cardData.length > 0 ? (
+      {moviesOnThePage && moviesOnThePage.length > 0 ? (
         <ul className="movies-card-list__items">
-          {cardData
-            .slice(0, deviceWidth[currentDevice].cards.initialQuantity)
-            .map((item, index) => (
-              <li key={index} className="movies-card-list__item">
-                <MoviesCard data={item} />
-              </li>
-            ))}
+          {moviesOnThePage.map((movie) => (
+            <li key={movie.id ? movie.id : movie._id} className="movies-card-list__item">
+              <MoviesCard
+                movie={movie}
+                isLoading={isLoading}
+                setIsLoading={setIsLoading}
+                setMovies={setMovies}
+                setIsCardLikeRequested={setIsCardLikeRequested}
+                isCardLikeRequested={isCardLikeRequested}
+                setIsPopUpOpened={setIsPopUpOpened}
+                setPopUpMessages={setPopUpMessages}
+              />
+            </li>
+          ))}
         </ul>
+      ) : currentLocation === 'movies' ? (
+        <h2
+          className={`movies-card-list__empty ${
+            !isMoviesFound ? '' : 'movies-card-list__empty_active'
+          }`}>
+          Ничего не найдено
+        </h2>
       ) : (
-        <h2 className="movies-card-list__empty">Список фильмов пуст</h2>
+        <h2
+          className={`movies-card-list__empty ${
+            moviesOnThePage.length ? '' : 'movies-card-list__empty_active'
+          }`}>
+          Ничего не найдено
+        </h2>
       )}
-      {cardData.length > deviceWidth.desktop.cards.initialQuantity && <MoreBtn />}
+      {moviesOnThePage.length > 0 &&
+        (isShortMoviesChecked
+          ? moviesOnThePage.length < shortMovies.length
+          : moviesOnThePage.length < filteredMovies.length) &&
+        currentLocation === 'movies' && (
+          <MoreBtn
+            moviesOnThePage={moviesOnThePage}
+            setMoviesOnThePage={setMoviesOnThePage}
+            cardsInARow={cardsInARow}
+            filteredMovies={filteredMovies}
+            shortMovies={shortMovies}
+            maxInitialCardsOnThePage={maxInitialCardsOnThePage}
+            isShortMoviesChecked={isShortMoviesChecked}
+            currentLocation={currentLocation}
+          />
+        )}
     </div>
   );
 };
 
 MoviesCardList.propTypes = {
-  cardData: PropTypes.array
+  movies: PropTypes.array,
+  setMovies: PropTypes.func,
+  isShortMoviesChecked: PropTypes.bool,
+  isLoading: PropTypes.bool,
+  formData: PropTypes.string,
+  filteredMovies: PropTypes.array,
+  moviesOnThePage: PropTypes.array,
+  cardsInARow: PropTypes.number,
+  setMoviesOnThePage: PropTypes.func,
+  setIsShortMoviesChecked: PropTypes.func,
+  currentLocation: PropTypes.string,
+  setIsLoading: PropTypes.func,
+  setFilteredMovies: PropTypes.func,
+  setShortMovies: PropTypes.func,
+  setCardsInARow: PropTypes.func,
+  setMaxInitialCardsOnThePage: PropTypes.func,
+  setIsMoviesFound: PropTypes.func,
+  setIsCardLikeRequested: PropTypes.func,
+  isCardLikeRequested: PropTypes.bool,
+  setIsPopUpOpened: PropTypes.func,
+  setPopUpMessages: PropTypes.func,
+  shortMovies: PropTypes.array,
+  maxInitialCardsOnThePage: PropTypes.number,
+  isMoviesFound: PropTypes.bool
 };
 
 export default MoviesCardList;

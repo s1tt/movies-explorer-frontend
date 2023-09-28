@@ -24,13 +24,12 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-bottom: 169px;
+  margin-bottom: 204px;
 }
 
 .profile__label {
   display: flex;
-  gap: 10px;
-  justify-content: space-between;
+  flex-direction: column;
   color: #fff;
   font-size: 11px;
   font-style: normal;
@@ -70,18 +69,36 @@
   padding: 15px;
 }
 
-.profile__error {
+.profile__field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 10px;
+}
+
+.profile__errors {
+  width: 100%;
+}
+
+.profile__validation-error {
   margin: 0;
   color: #ee3465;
   font-size: 10px;
   line-height: normal;
-  visibility: hidden;
-  text-align: center;
-  margin-bottom: 20px;
+  text-align: right;
 }
 
-.profile__error_active {
-  visibility: visible;
+.profile__success-message {
+  color: #3ddc84;
+  opacity: 0;
+  transition: opacity 2s ease;
+  text-align: center;
+  font-size: 14px;
+}
+
+.profile__success-message_active {
+  opacity: 1;
 }
 
 .profile__btn-edit {
@@ -98,6 +115,12 @@
   align-self: center;
   cursor: pointer;
   transition: opacity 0.3s;
+}
+
+.profile__btn-edit:disabled,
+.profile__btn-edit:disabled:hover {
+  opacity: 0.6;
+  cursor: default;
 }
 
 .profile__btn-logout {
@@ -131,24 +154,24 @@
   }
 
   .profile__fields {
-    margin-bottom: 160px;
+    margin-bottom: 191px;
   }
 }
 
 @media screen and (max-width: 520px) {
   .profile__wrapper {
-    margin-top: 70px;
+    margin-top: 67px;
     min-width: 260px;
     padding: 0 calc(var(--padding-mobile) + 12px);
   }
 
   .profile__title {
-    margin-bottom: 65px;
+    margin-bottom: 62px;
     font-size: 24px;
   }
 
   .profile__fields {
-    margin-bottom: 328px;
+    margin-bottom: 351px;
   }
 
   .profile__btn-edit,
