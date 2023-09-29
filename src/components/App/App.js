@@ -25,7 +25,6 @@ function App() {
     if (jwt) {
       tokenCheck(jwt)
         .then((res) => {
-          console.log(res);
           setIsLoggedIn(true);
           setCurrentUser(res);
         })
