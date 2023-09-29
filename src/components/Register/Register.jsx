@@ -92,10 +92,10 @@ const Register = ({ setIsLoggedIn, setIsPopUpOpened, setPopUpMessages }) => {
 
   function handleSubmitForm(e) {
     e.preventDefault();
-    registration(name.value, email.value, password.value)
+    registration(name.value, email.value.toLowerCase(), password.value)
       .then((res) => {
         if (res._id) {
-          login(email.value, password.value)
+          login(email.value.toLowerCase(), password.value)
             .then((res) => {
               if (res.token) {
                 localStorage.setItem('token', res.token);

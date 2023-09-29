@@ -68,7 +68,7 @@ const Login = ({ setIsLoggedIn, setIsPopUpOpened, setPopUpMessages }) => {
 
   function handleSubmitForm(e) {
     e.preventDefault();
-    login(email.value, password.value)
+    login(email.value.toLowerCase(), password.value)
       .then((res) => {
         if (res.token) {
           localStorage.setItem('token', res.token);

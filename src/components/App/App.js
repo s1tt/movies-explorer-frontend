@@ -20,29 +20,23 @@ function App() {
   const [popUpMessages, setPopUpMessages] = useState({});
 
   useEffect(() => {
+    setIsTokenChecked(false);
     const jwt = localStorage.getItem('token');
-
-    async function checkToken() {
-      setIsTokenChecked(false);
-      if (jwt) {
-        try {
-          const res = await tokenCheck(jwt);
-          if (res) {
-            setIsLoggedIn(true);
-            setCurrentUser(res);
-          }
-        } catch (err) {
+    if (jwt) {
+      tokenCheck(jwt)
+        .then((res) => {
+          console.log(res);
+          setIsLoggedIn(true);
+          setCurrentUser(res);
+        })
+        .catch((err) => {
           setIsPopUpOpened(true);
           setPopUpMessages({ title: popUpAlertMessages.titles.error, message: errorHandler(err) });
-        } finally {
-          setIsTokenChecked(true);
-        }
-      } else {
-        setIsTokenChecked(true);
-      }
+        })
+        .finally(() => setIsTokenChecked(true));
+    } else {
+      setIsTokenChecked(true);
     }
-
-    checkToken(); // Вызываем асинхронную функцию для проверки токена
   }, [isLoggedIn]);
 
   if (!isTokenChecked) {
