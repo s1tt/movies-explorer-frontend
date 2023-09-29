@@ -1,16 +1,15 @@
-/* Стили для затемненного фона попапа */
 .popup {
-  position: fixed; /* Используйте fixed, чтобы попап оставался на месте при прокрутке страницы */
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.4); /* Используйте rgba для задания прозрачности фона */
+  background-color: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(5px);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 999; /* Устанавливаете z-index для попапа, чтобы он отображался поверх остальных элементов */
+  z-index: 999;
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease-in-out;
@@ -23,15 +22,10 @@
 
 .popup__wrapper {
   width: 40%;
-  /* height: 50px; */
   border: none;
   outline: none;
-  /* color: #fff; */
-  /* background-color: rgba(255, 255, 255, 0.3); */
   background-color: var(--second-bg-color);
-  /* cursor: pointer; */
   position: relative;
-  /* z-index: 0; */
   padding: 30px;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -52,7 +46,6 @@
 .popup__text {
   display: flex;
   justify-content: center;
-  /* margin: 0 auto; */
   text-align: center;
   margin: 0;
   font-size: 14px;
@@ -89,5 +82,26 @@
   }
   100% {
     background-position: 0 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .popup__wrapper {
+    width: 60%;
+    padding: 60px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .popup__wrapper {
+    width: 40%;
+    padding: 50px;
+  }
+
+  .popup__text {
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
   }
 }
