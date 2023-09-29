@@ -12,7 +12,6 @@ const ProfileFormField = ({
   validation,
   error
 }) => {
-  console.log(error);
   return (
     <label htmlFor={htmlFor} className="profile__label">
       <div className="profile__field">

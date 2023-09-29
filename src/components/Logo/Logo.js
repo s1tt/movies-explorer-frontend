@@ -8,8 +8,6 @@ const Logo = () => {
 
   const isAuthPage = location.pathname === '/signin' && location.pathname === '/signup';
 
-  console.log(isAuthPage);
-
   return (
     <Link to="/" className={`logo ${isAuthPage ? 'logo_auth' : ''}`}>
       <img className="logo__image" src={logo} alt="Логотип сайта" />

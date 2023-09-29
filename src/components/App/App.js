@@ -16,7 +16,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const location = useLocation();
 
-  const [isPopUpOpened, setIsPopUpOpened] = useState(false); //
+  const [isPopUpOpened, setIsPopUpOpened] = useState(false);
   const [popUpMessages, setPopUpMessages] = useState({});
 
   useEffect(() => {

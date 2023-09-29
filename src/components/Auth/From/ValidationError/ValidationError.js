@@ -2,7 +2,6 @@ import React from 'react';
 import './ValidationError.css';
 
 const ValidationError = ({ validation, property }) => {
-  console.log(property);
   return (
     <>
       {validation.target.isDirty && validation.target[property] && (

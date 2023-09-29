@@ -23,7 +23,6 @@ const Content = ({
   const [isCardLikeRequested, setIsCardLikeRequested] = useState(false);
   const [cardsInARow, setCardsInARow] = useState(null);
   const [maxInitialCardsOnThePage, setMaxInitialCardsOnThePage] = useState(null);
-  //
 
   const currentLocation = useLocation().pathname.slice(1, useLocation().pathname.length);
 
@@ -59,9 +58,9 @@ const Content = ({
           path="/profile"
           element={
             <ProtectedRoute
+              element={Profile}
               setPopUpMessages={setPopUpMessages}
               setIsPopUpOpened={setIsPopUpOpened}
-              element={Profile}
               setIsLoggedIn={setIsLoggedIn}
               isLoggedIn={isLoggedIn}
               setCurrentUser={setCurrentUser}

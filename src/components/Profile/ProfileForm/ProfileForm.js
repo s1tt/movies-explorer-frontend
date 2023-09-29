@@ -3,8 +3,6 @@ import './ProfileForm.css';
 import ProfileFormField from './ProfileFormField/ProfileFormField';
 
 const ProfileForm = ({ handleSubmitForm, properties, name, email, isUserInfoChanged }) => {
-  console.log(properties);
-
   return (
     <form className="profile__form" onSubmit={handleSubmitForm}>
       <div className="profile__fields">

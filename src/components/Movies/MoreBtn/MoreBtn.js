@@ -8,7 +8,6 @@ const MoreBtn = ({
   cardsInARow,
   filteredMovies,
   shortMovies,
-  // maxInitialCardsOnThePage,
   isShortMoviesChecked,
   currentLocation
 }) => {

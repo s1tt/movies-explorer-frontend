@@ -24,7 +24,6 @@ const SavedMovies = ({
   const [formDataForFavoriteMovies, setFormDataForFavoriteMovies] = useState('');
   const [isShortFavoriteMoviesChecked, setIsShortFavoriteMoviesChecked] = useState(false);
   const [moviesOnTheFavoritePage, setMoviesOnTheFavoritePage] = useState([]);
-  //
   const [isFavoriteMoviesFound, setIsFavoriteMoviesFound] = useState(false);
 
   useEffect(() => {

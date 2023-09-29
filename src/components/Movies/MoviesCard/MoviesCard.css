@@ -73,7 +73,6 @@
 .card__favorite-checkbox-label {
   display: block;
   position: relative;
-  /* right: 16px; */
   cursor: pointer;
   left: 242px;
   bottom: 54px;

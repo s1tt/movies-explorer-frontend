@@ -14,8 +14,6 @@ const AuthForm = ({
   questionLinkText,
   questionLinkTo
 }) => {
-  //TODO возможно перенести выше
-  //TODO А надо ли класс лого
   return (
     <section className="auth-form">
       <div className="auth-form__wrapper">
