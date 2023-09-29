@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import { Navigate, Route, Routes, useLocation } from 'react-router';
+import { Route, Routes, useLocation } from 'react-router';
 import ProtectedRoute from '../../HOC/ProtectedRoute';
 import Login from '../Login/Login';
 import Main from '../Main/Main';
@@ -111,8 +111,7 @@ const Content = ({
             />
           }
         />
-        <Route exact path="/404" element={<NotFound />} />
-        <Route path="*" element={<Navigate to="/404"></Navigate>} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </main>
   );
