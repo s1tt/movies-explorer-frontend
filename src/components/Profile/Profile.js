@@ -6,6 +6,7 @@ import { updateUserInfo } from '../../utils/MainApi.js';
 import { errorHandler, popUpAlertMessages } from '../../utils/constants.js';
 import Preloader from '../Preloader/Preloader.js';
 import './Profile.css';
+import ProfileForm from './ProfileForm/ProfileForm.js';
 
 const Profile = ({
   setIsLoggedIn,
@@ -15,6 +16,9 @@ const Profile = ({
   setIsPopUpOpened,
   setPopUpMessages
 }) => {
+  const [isNameInputError, setIsNameInputError] = useState(false);
+  const [isEmailInputError, setIsEmailInputError] = useState(false);
+
   const [isUserInfoChanged, setIsUserInfoChanged] = useState(false);
   const name = useInput(currentUser.name || '', {
     isEmpty: true,
@@ -23,6 +27,19 @@ const Profile = ({
     isNameValidError: true
   });
   const email = useInput(currentUser.email || '', { isEmpty: true, minLength: 3, isEmail: true });
+
+  useEffect(() => {
+    setErrorState(name.errorMessage, setIsNameInputError);
+  }, [name.errorMessage]);
+
+  useEffect(() => {
+    setErrorState(email.errorMessage, setIsEmailInputError);
+  }, [email.errorMessage]);
+
+  const setErrorState = (errorMessage, setErrorFunction) => {
+    const isAllEmpty = Object.values(errorMessage).every((value) => value === '');
+    setErrorFunction(!isAllEmpty);
+  };
 
   useEffect(() => {
     if (name.value !== currentUser.name || email.value !== currentUser.email) {
@@ -59,6 +76,35 @@ const Profile = ({
     localStorage.clear();
   }
 
+  const properties = [
+    {
+      htmlFor: 'name',
+      fieldName: 'Имя',
+      inputType: 'name',
+      inputName: 'name',
+      inputId: 'name',
+      inputPlaceholder: 'Введите Ваше новое имя',
+      validation: {
+        target: name,
+        properties: ['isEmptyError', 'minLengthError', 'isNameValidError']
+      },
+      error: isNameInputError
+    },
+    {
+      htmlFor: 'email',
+      fieldName: 'E-mail',
+      inputType: 'email',
+      inputName: 'email',
+      inputId: 'email',
+      inputPlaceholder: 'Введите Ваш новый email',
+      validation: {
+        target: email,
+        properties: ['isEmptyError', 'minLengthError', 'maxLengthError', 'isEmailError']
+      },
+      error: isEmailInputError
+    }
+  ];
+
   return (
     <section className="profile">
       <div className="profile__wrapper">
@@ -66,84 +112,14 @@ const Profile = ({
           <Preloader />
         ) : (
           <>
-            <h1 className="profile__title">Привет, {currentUser.name}</h1>
-            <form className="profile__form" onSubmit={handleSubmitForm}>
-              <div className="profile__fields">
-                <label htmlFor="name" className="profile__label">
-                  <div className="profile__field">
-                    <span>Имя</span>
-                    <input
-                      type="text"
-                      name="name"
-                      id="name"
-                      className="profile__input"
-                      value={name.value}
-                      placeholder="Напишите свое имя"
-                      onChange={(e) => name.onChange(e)}
-                      onFocus={(e) => name.onFocus(e)}
-                    />
-                  </div>
-                  <div className="profile__errors">
-                    {name.isDirty && name.isEmpty && (
-                      <div className="profile__validation-error">{name.errorMessage.isEmpty}</div>
-                    )}
-                    {name.isDirty && name.minLengthError && (
-                      <div className="profile__validation-error">
-                        {name.errorMessage.minLengthError}
-                      </div>
-                    )}
-                    {name.isDirty && name.maxLengthError && (
-                      <div className="profile__validation-error">
-                        {name.errorMessage.maxLengthError}
-                      </div>
-                    )}
-                    {name.isDirty && name.isNameValidError && (
-                      <div className="profile__validation-error">
-                        {name.errorMessage.isNameValidError}
-                      </div>
-                    )}
-                  </div>
-                </label>
-
-                <label htmlFor="email" className="profile__label">
-                  <div className="profile__field">
-                    <span>E-mail</span>
-                    <input
-                      type="email"
-                      name="email"
-                      id="email"
-                      className="profile__input"
-                      value={email.value}
-                      placeholder="Напишите ваш e-mail"
-                      onChange={(e) => email.onChange(e)}
-                      onFocus={(e) => email.onFocus(e)}
-                    />
-                  </div>
-                  <div className="profile__errors">
-                    {email.isDirty && email.isEmpty && (
-                      <div className="profile__validation-error">{email.errorMessage.isEmpty}</div>
-                    )}
-                    {email.isDirty && email.minLengthError && (
-                      <div className="profile__validation-error">
-                        {email.errorMessage.minLengthError}
-                      </div>
-                    )}
-                    {email.isDirty && email.isEmailError && (
-                      <div className="profile__validation-error">
-                        {email.errorMessage.isEmailError}
-                      </div>
-                    )}
-                  </div>
-                </label>
-              </div>
-
-              <button
-                type="submit"
-                disabled={email.isInputValid || name.isInputValid || !isUserInfoChanged}
-                className="profile__btn-edit">
-                Редактировать
-              </button>
-            </form>
+            <h1 className="profile__title">Привет, {currentUser.name}!</h1>
+            <ProfileForm
+              properties={properties}
+              handleSubmitForm={handleSubmitForm}
+              name={name}
+              email={email}
+              isUserInfoChanged={isUserInfoChanged}
+            />
             <Link to="/" className="profile__btn-logout" onClick={() => logout()}>
               Выйти из аккаунта
             </Link>

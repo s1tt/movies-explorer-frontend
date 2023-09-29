@@ -6,11 +6,9 @@ import './Logo.css';
 const Logo = () => {
   const location = useLocation();
 
-  const isAuthPage =
-    location.pathname !== '/' &&
-    location.pathname !== '/movies' &&
-    location.pathname !== '/profile' &&
-    location.pathname !== '/saved-movies';
+  const isAuthPage = location.pathname === '/signin' && location.pathname === '/signup';
+
+  console.log(isAuthPage);
 
   return (
     <Link to="/" className={`logo ${isAuthPage ? 'logo_auth' : ''}`}>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 const useValidation = (value, validations) => {
-  const [isEmpty, setIsEmpty] = useState(true);
+  const [isEmptyError, setIsEmptyError] = useState(true);
   const [minLengthError, setMinLengthError] = useState(false);
   const [maxLengthError, setMaxLengthError] = useState(false);
   const [isEmailError, setIsEmailError] = useState(false);
@@ -14,7 +14,7 @@ const useValidation = (value, validations) => {
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const re2 = /^[a-zA-Zа-яА-Я\s-]*$/;
 
-    const errors = {}; // Создайте объект для ошибок
+    const errors = {};
 
     for (const validation in validations) {
       switch (validation) {
@@ -38,11 +38,11 @@ const useValidation = (value, validations) => {
           break;
         case 'isEmpty':
           if (value) {
-            setIsEmpty(false);
-            errors.isEmpty = '';
+            setIsEmptyError(false);
+            errors.isEmptyError = '';
           } else {
-            setIsEmpty(true);
-            errors.isEmpty = 'Поле не может быть пустым';
+            setIsEmptyError(true);
+            errors.isEmptyError = 'Поле не может быть пустым';
           }
           break;
         case 'isEmail':
@@ -72,12 +72,12 @@ const useValidation = (value, validations) => {
 
   useEffect(() => {
     setIsInputValid(
-      isEmpty || minLengthError || maxLengthError || isEmailError || isNameValidError
+      isEmptyError || minLengthError || maxLengthError || isEmailError || isNameValidError
     );
-  }, [isEmpty, minLengthError, maxLengthError, isEmailError, isNameValidError]);
+  }, [isEmptyError, minLengthError, maxLengthError, isEmailError, isNameValidError]);
 
   return {
-    isEmpty,
+    isEmptyError,
     minLengthError,
     maxLengthError,
     isEmailError,
