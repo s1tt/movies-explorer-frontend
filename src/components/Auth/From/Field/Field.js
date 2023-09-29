@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import ValidationError from '../ValidationError/ValidationError';
 import './Field.css';
@@ -17,7 +18,7 @@ const Field = ({
 }) => {
   return (
     <>
-      <label className="field" htmlFor={htmlFor}>
+      <label className="auth-form__label" htmlFor={htmlFor}>
         {fieldName}
       </label>
       <input
@@ -25,7 +26,7 @@ const Field = ({
         name={inputName}
         id={inputId}
         placeholder={inputPlaceholder}
-        className={`field__input ${error ? 'field__input_error' : ''}`}
+        className={`auth-form__input ${error ? 'auth-form__input_error' : ''}`}
         value={value}
         onChange={onChange}
         onFocus={onFocus}
@@ -37,6 +38,20 @@ const Field = ({
       </div>
     </>
   );
+};
+
+Field.propTypes = {
+  htmlFor: PropTypes.string,
+  fieldName: PropTypes.string,
+  inputType: PropTypes.string,
+  inputName: PropTypes.string,
+  inputId: PropTypes.string,
+  inputPlaceholder: PropTypes.string,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  validation: PropTypes.object,
+  error: PropTypes.bool
 };
 
 export default Field;

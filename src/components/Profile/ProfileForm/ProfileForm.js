@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import './ProfileForm.css';
 import ProfileFormField from './ProfileFormField/ProfileFormField';
@@ -43,6 +44,14 @@ const ProfileForm = ({ handleSubmitForm, properties, name, email, isUserInfoChan
       </button>
     </form>
   );
+};
+
+ProfileForm.propTypes = {
+  handleSubmitForm: PropTypes.func,
+  properties: PropTypes.array,
+  name: PropTypes.object,
+  email: PropTypes.object,
+  isUserInfoChanged: PropTypes.bool
 };
 
 export default ProfileForm;

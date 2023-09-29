@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import ValidationError from '../../../Auth/From/ValidationError/ValidationError';
 import './ProfileFormField.css';
@@ -34,6 +35,17 @@ const ProfileFormField = ({
       </div>
     </label>
   );
+};
+
+ProfileFormField.propTypes = {
+  htmlFor: PropTypes.string,
+  fieldName: PropTypes.string,
+  inputType: PropTypes.string,
+  inputName: PropTypes.string,
+  inputId: PropTypes.string,
+  inputPlaceholder: PropTypes.string,
+  validation: PropTypes.object,
+  error: PropTypes.bool
 };
 
 export default ProfileFormField;

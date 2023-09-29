@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../Logo/Logo';
@@ -52,8 +53,7 @@ const AuthForm = ({
               )
             )}
           </div>
-
-          <Button buttonText={buttonText} />
+          <Button buttonText={buttonText} properties={properties} />
         </form>
         <p className="auth-form__question">
           {question}&nbsp;
@@ -64,6 +64,16 @@ const AuthForm = ({
       </div>
     </section>
   );
+};
+
+AuthForm.propTypes = {
+  title: PropTypes.string,
+  properties: PropTypes.array,
+  handleSubmitForm: PropTypes.func,
+  buttonText: PropTypes.string,
+  question: PropTypes.string,
+  questionLinkText: PropTypes.string,
+  questionLinkTo: PropTypes.string
 };
 
 export default AuthForm;
