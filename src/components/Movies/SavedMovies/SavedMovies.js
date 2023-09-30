@@ -27,8 +27,9 @@ const SavedMovies = ({
   const [isFavoriteMoviesFound, setIsFavoriteMoviesFound] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem(`${currentLocation}_filteredMovies`, JSON.stringify(''));
-    setFilteredFavoriteMovies('');
+    localStorage.setItem(`${currentLocation}_filteredMovies`, JSON.stringify([]));
+    setFilteredFavoriteMovies([]);
+
     getFavoriteMovies()
       .then((data) => {
         setFavoriteMovies(data);
@@ -53,6 +54,13 @@ const SavedMovies = ({
   }, []);
 
   useEffect(() => {
+    localStorage.setItem(
+      `${currentLocation}_moviesOnThePage`,
+      JSON.stringify(moviesOnTheFavoritePage)
+    );
+  }, [moviesOnTheFavoritePage]);
+
+  useEffect(() => {
     if (isShortFavoriteMoviesChecked) {
       setMoviesOnTheFavoritePage(shortFavoriteMovies);
       localStorage.setItem(
@@ -61,31 +69,32 @@ const SavedMovies = ({
       );
     } else {
       if (formDataForFavoriteMovies.length > 0) {
-        setMoviesOnTheFavoritePage(filteredFavoriteMovies);
-        localStorage.setItem(
-          `${currentLocation}_moviesOnThePage`,
-          JSON.stringify(filteredFavoriteMovies)
+        setMoviesOnTheFavoritePage(
+          JSON.parse(localStorage.getItem(`${currentLocation}_filteredMovies`))
         );
       } else {
-        setMoviesOnTheFavoritePage(favoriteMovies);
+        setMoviesOnTheFavoritePage(JSON.parse(localStorage.getItem(`${currentLocation}_movies`)));
+
         localStorage.setItem(`${currentLocation}_moviesOnThePage`, JSON.stringify(favoriteMovies));
       }
     }
   }, [isShortFavoriteMoviesChecked]);
 
   useEffect(() => {
-    if (isShortFavoriteMoviesChecked) {
-      setMoviesOnTheFavoritePage(filterShortMovies(filteredFavoriteMovies));
-      localStorage.setItem(
-        `${currentLocation}_moviesOnThePage`,
-        JSON.stringify(filterShortMovies(filteredFavoriteMovies))
-      );
-    } else {
-      setMoviesOnTheFavoritePage(filteredFavoriteMovies);
-      localStorage.setItem(
-        `${currentLocation}_moviesOnThePage`,
-        JSON.stringify(filteredFavoriteMovies)
-      );
+    if (formDataForFavoriteMovies) {
+      if (isShortFavoriteMoviesChecked) {
+        setMoviesOnTheFavoritePage(filterShortMovies(filteredFavoriteMovies));
+        localStorage.setItem(
+          `${currentLocation}_moviesOnThePage`,
+          JSON.stringify(filterShortMovies(filteredFavoriteMovies))
+        );
+      } else {
+        setMoviesOnTheFavoritePage(filteredFavoriteMovies);
+        localStorage.setItem(
+          `${currentLocation}_moviesOnThePage`,
+          JSON.stringify(filteredFavoriteMovies)
+        );
+      }
     }
   }, [filteredFavoriteMovies]);
 

@@ -104,6 +104,7 @@ const addToFavorite = async (movie) => {
     thumbnail,
     movieId
   } = movie;
+
   const requestOptions = {
     method: 'POST',
     headers: {

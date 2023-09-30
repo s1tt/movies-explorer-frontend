@@ -175,7 +175,7 @@ SearchForm.propTypes = {
   shortMovies: PropTypes.array,
   setIsPopUpOpened: PropTypes.func,
   setPopUpMessages: PropTypes.func,
-  moviesOnThePage: PropTypes.oneOfType([PropTypes.string, PropTypes.array])
+  moviesOnThePage: PropTypes.array
 };
 
 export default SearchForm;

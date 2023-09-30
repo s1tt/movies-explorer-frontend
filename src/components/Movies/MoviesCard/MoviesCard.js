@@ -14,7 +14,8 @@ const MoviesCard = ({
   setIsPopUpOpened,
   setPopUpMessages,
   setMoviesOnThePage,
-  setFilteredMovies
+  setFilteredMovies,
+  setShortMovies
 }) => {
   const location = useLocation();
   const { isFormSubmitting, setIsFormSubmitting } = useFormBlocking();
@@ -29,7 +30,7 @@ const MoviesCard = ({
     if (e.target.checked) {
       handlerAddToFavorites(e, movie);
     } else {
-      handlerRemoveFromFavorites(movie);
+      handlerRemoveFromFavorites(e, movie);
     }
   };
 
@@ -83,12 +84,11 @@ const MoviesCard = ({
       });
   };
 
-  const handlerRemoveFromFavorites = (movie) => {
+  const handlerRemoveFromFavorites = (e, movie) => {
+    e.preventDefault();
     setIsFormSubmitting(true);
     setIsCardLikeRequested(true);
     const favoriteMovies = JSON.parse(localStorage.getItem('saved-movies_movies')) || null;
-    const filteredFavoriteMovies =
-      JSON.parse(localStorage.getItem('saved-movies_filteredMovies')) || null;
 
     const targetMovie =
       location.pathname === '/movies'
@@ -96,26 +96,45 @@ const MoviesCard = ({
         : movie;
 
     removeFromFavorite(targetMovie._id)
-      .then((res) => {
-        if (res) {
-          //удаляем фильм из общего списка
-          const newFavoriteMovies = favoriteMovies.filter((movie) => movie._id !== targetMovie._id);
-          localStorage.setItem(`saved-movies_movies`, JSON.stringify(newFavoriteMovies));
-          setMovies(newFavoriteMovies);
-          //удаляем фильм из отфильтрованных
-          if (filteredFavoriteMovies) {
-            const newFilteredFavoriteMovies = filteredFavoriteMovies.filter(
-              (movie) => movie._id !== targetMovie._id
-            );
-            setFilteredMovies(newFilteredFavoriteMovies);
-            if (location.pathname === '/saved-movies') {
-              setMoviesOnThePage(newFilteredFavoriteMovies);
-            }
-          } else {
-            if (location.pathname === '/saved-movies') {
-              setMoviesOnThePage(newFavoriteMovies); //
-            }
-          }
+      .then(() => {
+        if (location.pathname === '/saved-movies') {
+          // Обновляем хранилище для списка фильмов
+          const favoriteMoviesLocal = JSON.parse(localStorage.getItem('saved-movies_movies'));
+          const newFavoriteMoviesLocal = favoriteMoviesLocal
+            ? favoriteMoviesLocal.filter((movie) => movie.movieId !== targetMovie.movieId)
+            : [];
+
+          localStorage.setItem('saved-movies_movies', JSON.stringify(newFavoriteMoviesLocal));
+          setMovies(newFavoriteMoviesLocal);
+          // Обновляем хранилище для фильмов на странице
+          const moviesOnThePageLocal = JSON.parse(
+            localStorage.getItem('saved-movies_moviesOnThePage')
+          );
+          const newMoviesOnThePage = moviesOnThePageLocal
+            ? moviesOnThePageLocal.filter((movie) => movie.movieId !== targetMovie.movieId)
+            : [];
+
+          localStorage.setItem('saved-movies_moviesOnThePage', JSON.stringify(newMoviesOnThePage));
+          setMoviesOnThePage(newMoviesOnThePage);
+
+          // Обновляем хранилище для отфильтрованных фильмов
+          const filteredMoviesLocal = JSON.parse(
+            localStorage.getItem('saved-movies_filteredMovies')
+          );
+          const newFilteredMovies = filteredMoviesLocal
+            ? filteredMoviesLocal.filter((movie) => movie.movieId !== targetMovie.movieId)
+            : [];
+
+          localStorage.setItem('saved-movies_filteredMovies', JSON.stringify(newFilteredMovies));
+          setFilteredMovies(newFilteredMovies);
+
+          // Обновляем хранилище для коротких фильмов
+          const shortMoviesLocal = JSON.parse(localStorage.getItem('saved-movies_shortMovies'));
+          const newShortMoviesLocal = shortMoviesLocal
+            ? shortMoviesLocal.filter((movie) => movie.movieId !== targetMovie.movieId)
+            : [];
+          localStorage.setItem('saved-movies_shortMovies', JSON.stringify(newShortMoviesLocal));
+          setShortMovies(newShortMoviesLocal);
         }
       })
       .catch((err) => {
@@ -124,7 +143,7 @@ const MoviesCard = ({
         setPopUpMessages({ title: popUpAlertMessages.titles.error, message: errorHandler(err) });
       })
       .finally(() => {
-        setIsCardLikeRequested(false);
+        e.target.checked = false;
         setIsFormSubmitting(false);
       });
   };
@@ -178,7 +197,7 @@ const MoviesCard = ({
           className="card__cross-btn"
           disabled={isFormSubmitting}
           type="button"
-          onClick={() => handlerRemoveFromFavorites(movie)}>
+          onClick={(e) => handlerRemoveFromFavorites(e, movie)}>
           <img className="card__cross-ico" src={cardCrossIco} alt="Иконка удаления из избранного" />
         </button>
       )}
@@ -198,6 +217,7 @@ MoviesCard.propTypes = {
     nameEN: PropTypes.string,
     _id: PropTypes.string,
     id: PropTypes.number,
+    movieId: PropTypes.number,
     image: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.shape({
@@ -217,7 +237,8 @@ MoviesCard.propTypes = {
   setIsPopUpOpened: PropTypes.func,
   setPopUpMessages: PropTypes.func,
   setMoviesOnThePage: PropTypes.func,
-  setFilteredMovies: PropTypes.func
+  setFilteredMovies: PropTypes.func,
+  setShortMovies: PropTypes.func
 };
 
 export default MoviesCard;
