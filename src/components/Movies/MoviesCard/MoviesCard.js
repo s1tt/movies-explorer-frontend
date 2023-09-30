@@ -69,6 +69,7 @@ const MoviesCard = ({
           const likedMovies = JSON.parse(localStorage.getItem('saved-movies_movies'));
           const newLikedMovies = [...likedMovies, likedMovie];
           localStorage.setItem(`saved-movies_movies`, JSON.stringify(newLikedMovies));
+          e.target.checked = true;
         }
       })
       .catch((err) => {
@@ -77,7 +78,6 @@ const MoviesCard = ({
         setPopUpMessages({ title: popUpAlertMessages.titles.error, message: errorHandler(err) });
       })
       .finally(() => {
-        e.target.checked = true;
         setIsFormSubmitting(false);
         setIsCardLikeRequested(false);
       });
