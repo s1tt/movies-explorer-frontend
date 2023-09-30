@@ -2,21 +2,14 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { useFormBlocking } from '../../../contexts/FormBlockingContext';
+import { useMoviesOnThePage } from '../../../contexts/MoviesOnThePageContext';
 import cardCrossIco from '../../../images/card-cross-ico.svg';
 import { addToFavorite, removeFromFavorite } from '../../../utils/MainApi';
 import { errorHandler, popUpAlertMessages } from '../../../utils/constants';
 import './MoviesCard.css';
 
-const MoviesCard = ({
-  movie,
-  setMovies,
-  setIsCardLikeRequested,
-  setIsPopUpOpened,
-  setPopUpMessages,
-  setMoviesOnThePage,
-  setFilteredMovies,
-  setShortMovies
-}) => {
+const MoviesCard = ({ movie, setIsCardLikeRequested, setIsPopUpOpened, setPopUpMessages }) => {
+  const { moviesOnThePage, setMoviesOnThePage } = useMoviesOnThePage();
   const location = useLocation();
   const { isFormSubmitting, setIsFormSubmitting } = useFormBlocking();
 
@@ -67,7 +60,9 @@ const MoviesCard = ({
       .then((res) => {
         if (res.movie) {
           const likedMovie = res.movie;
-          const likedMovies = JSON.parse(localStorage.getItem('saved-movies_movies'));
+
+          const savedMoviesData = localStorage.getItem('saved-movies_movies');
+          const likedMovies = savedMoviesData ? JSON.parse(savedMoviesData) : [];
           const newLikedMovies = [...likedMovies, likedMovie];
           localStorage.setItem(`saved-movies_movies`, JSON.stringify(newLikedMovies));
           e.target.checked = true;
@@ -88,7 +83,7 @@ const MoviesCard = ({
     e.preventDefault();
     setIsFormSubmitting(true);
     setIsCardLikeRequested(true);
-    const favoriteMovies = JSON.parse(localStorage.getItem('saved-movies_movies')) || null;
+    const favoriteMovies = JSON.parse(localStorage.getItem('saved-movies_movies')) || [];
 
     const targetMovie =
       location.pathname === '/movies'
@@ -105,17 +100,6 @@ const MoviesCard = ({
             : [];
 
           localStorage.setItem('saved-movies_movies', JSON.stringify(newFavoriteMoviesLocal));
-          setMovies(newFavoriteMoviesLocal);
-          // Обновляем хранилище для фильмов на странице
-          const moviesOnThePageLocal = JSON.parse(
-            localStorage.getItem('saved-movies_moviesOnThePage')
-          );
-          const newMoviesOnThePage = moviesOnThePageLocal
-            ? moviesOnThePageLocal.filter((movie) => movie.movieId !== targetMovie.movieId)
-            : [];
-
-          localStorage.setItem('saved-movies_moviesOnThePage', JSON.stringify(newMoviesOnThePage));
-          setMoviesOnThePage(newMoviesOnThePage);
 
           // Обновляем хранилище для отфильтрованных фильмов
           const filteredMoviesLocal = JSON.parse(
@@ -126,7 +110,6 @@ const MoviesCard = ({
             : [];
 
           localStorage.setItem('saved-movies_filteredMovies', JSON.stringify(newFilteredMovies));
-          setFilteredMovies(newFilteredMovies);
 
           // Обновляем хранилище для коротких фильмов
           const shortMoviesLocal = JSON.parse(localStorage.getItem('saved-movies_shortMovies'));
@@ -134,7 +117,13 @@ const MoviesCard = ({
             ? shortMoviesLocal.filter((movie) => movie.movieId !== targetMovie.movieId)
             : [];
           localStorage.setItem('saved-movies_shortMovies', JSON.stringify(newShortMoviesLocal));
-          setShortMovies(newShortMoviesLocal);
+
+          // Обновляем  фильмы на странице
+          const newMoviesOnThePage = moviesOnThePage
+            ? moviesOnThePage.filter((movie) => movie.movieId !== targetMovie.movieId)
+            : [];
+
+          setMoviesOnThePage(newMoviesOnThePage);
         }
       })
       .catch((err) => {
@@ -149,7 +138,7 @@ const MoviesCard = ({
   };
 
   const isDefaultChecked = (movie) => {
-    const favoriteMovies = JSON.parse(localStorage.getItem('saved-movies_movies')) || null;
+    const favoriteMovies = JSON.parse(localStorage.getItem('saved-movies_movies')) || [];
 
     if (favoriteMovies && movie) {
       return favoriteMovies.some((favoriteMovie) => favoriteMovie.movieId === movie.id);
@@ -232,13 +221,9 @@ MoviesCard.propTypes = {
     nameRU: PropTypes.string,
     duration: PropTypes.number
   }),
-  setMovies: PropTypes.func,
   setIsCardLikeRequested: PropTypes.func,
   setIsPopUpOpened: PropTypes.func,
-  setPopUpMessages: PropTypes.func,
-  setMoviesOnThePage: PropTypes.func,
-  setFilteredMovies: PropTypes.func,
-  setShortMovies: PropTypes.func
+  setPopUpMessages: PropTypes.func
 };
 
 export default MoviesCard;

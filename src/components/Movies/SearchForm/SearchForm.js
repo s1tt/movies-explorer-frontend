@@ -15,13 +15,7 @@ const SearchForm = ({
   formData,
   setFormData,
   currentLocation,
-  setFilteredMovies,
-  setMovies,
   setIsMoviesFound,
-  shortMovies,
-  setShortMovies,
-  moviesOnThePage,
-  setMoviesOnThePage,
   setIsPopUpOpened,
   setPopUpMessages
 }) => {
@@ -47,14 +41,12 @@ const SearchForm = ({
 
     if (movies && formData) {
       const filteredMovies = filterMovies(movies, formData);
-      setFilteredMovies(filteredMovies);
       //запись отфильтрованных фильмов в локал сторадж
       localStorage.setItem(`${currentLocation}_filteredMovies`, JSON.stringify(filteredMovies));
       setIsMoviesFound(true);
 
       //запись отфильтрованных коротких фильмов в локал сторадж
       const shortMovies = filterShortMovies(filteredMovies);
-      setShortMovies(shortMovies);
       localStorage.setItem(`${currentLocation}_shortMovies`, JSON.stringify(shortMovies));
     }
   }, [isLoading, formData]);
@@ -82,7 +74,6 @@ const SearchForm = ({
       getMovies()
         .then((res) => {
           localStorage.setItem(`${currentLocation}_movies`, JSON.stringify(res));
-          setMovies(res);
         })
         .catch((error) => {
           console.log(error);
@@ -146,10 +137,6 @@ const SearchForm = ({
         </button>
       </div>
       <FilterCheckbox
-        moviesOnThePage={moviesOnThePage}
-        setMoviesOnThePage={setMoviesOnThePage}
-        shortMovies={shortMovies}
-        setShortMovies={setShortMovies}
         isShortMoviesChecked={isShortMoviesChecked}
         setIsShortMoviesChecked={setIsShortMoviesChecked}
         currentLocation={currentLocation}
@@ -160,22 +147,16 @@ const SearchForm = ({
 
 SearchForm.propTypes = {
   movies: PropTypes.array,
-  setMovies: PropTypes.func,
   isLoading: PropTypes.bool,
   formData: PropTypes.string,
   isShortMoviesChecked: PropTypes.bool,
   setIsShortMoviesChecked: PropTypes.func,
   setFormData: PropTypes.func,
   setIsLoading: PropTypes.func,
-  setFilteredMovies: PropTypes.func,
   currentLocation: PropTypes.string,
-  setShortMovies: PropTypes.func,
-  setMoviesOnThePage: PropTypes.func,
   setIsMoviesFound: PropTypes.func,
-  shortMovies: PropTypes.array,
   setIsPopUpOpened: PropTypes.func,
-  setPopUpMessages: PropTypes.func,
-  moviesOnThePage: PropTypes.array
+  setPopUpMessages: PropTypes.func
 };
 
 export default SearchForm;

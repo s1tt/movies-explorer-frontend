@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
+import { useMoviesOnThePage } from '../../contexts/MoviesOnThePageContext';
 import Preloader from '../Preloader/Preloader';
 import './Movies.css';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
@@ -18,48 +19,40 @@ const Movies = ({
   setIsPopUpOpened,
   setPopUpMessages
 }) => {
-  const [globalMovies, setGlobalMovies] = useState([]);
-  const [shortGlobalMovies, setShortGlobalMovies] = useState([]);
-  const [filteredGlobalMovies, setFilteredGlobalMovies] = useState([]);
+  const { setMoviesOnThePage } = useMoviesOnThePage();
+
   const [formDataForGlobalMovies, setFormDataForGlobalMovies] = useState('');
   const [isShortGlobalMoviesChecked, setIsShortGlobalMoviesChecked] = useState(false);
-  const [moviesOnTheGlobalPage, setMoviesOnTheGlobalPage] = useState([]);
+  //
 
   const [isGlobalMoviesFound, setIsGlobalMoviesFound] = useState(false);
 
   useEffect(() => {
-    if (isShortGlobalMoviesChecked) {
-      setMoviesOnTheGlobalPage(shortGlobalMovies.slice(0, maxInitialCardsOnThePage));
-      localStorage.setItem(
-        `${currentLocation}_moviesOnThePage`,
-        JSON.stringify(shortGlobalMovies.slice(0, maxInitialCardsOnThePage))
-      );
-    } else {
-      const filteredGlobalMovies =
-        JSON.parse(localStorage.getItem(`${currentLocation}_filteredMovies`)) || [];
+    getFilteredMovies();
+  }, [isLoading, cardsInARow, formDataForGlobalMovies]); //отображение карточек при первом запросе, перезагрузке страницы, сабмита формы
 
-      setMoviesOnTheGlobalPage(filteredGlobalMovies.slice(0, maxInitialCardsOnThePage));
-      localStorage.setItem(
-        `${currentLocation}_moviesOnThePage`,
-        JSON.stringify(filteredGlobalMovies.slice(0, maxInitialCardsOnThePage))
-      );
+  useEffect(() => {
+    if (isShortGlobalMoviesChecked) {
+      const shortMovies = JSON.parse(localStorage.getItem(`${currentLocation}_shortMovies`)) || [];
+      setMoviesOnThePage(shortMovies.slice(0, maxInitialCardsOnThePage));
+    } else {
+      getFilteredMovies();
     }
-  }, [isShortGlobalMoviesChecked, formDataForGlobalMovies, filteredGlobalMovies, cardsInARow]);
+  }, [isShortGlobalMoviesChecked]); //переключение коротких и длинных фильмов
+
+  const getFilteredMovies = () => {
+    const filteredGlobalMovies =
+      JSON.parse(localStorage.getItem(`${currentLocation}_filteredMovies`)) || [];
+    setMoviesOnThePage(filteredGlobalMovies.slice(0, maxInitialCardsOnThePage));
+  };
 
   return (
     <section className="movies">
       <div className="movies__wrapper">
         <div className="movies__search-form">
           <SearchForm
-            moviesOnThePage={moviesOnTheGlobalPage}
-            setMoviesOnThePage={setMoviesOnTheGlobalPage}
             cardsInARow={cardsInARow}
-            shortMovies={shortGlobalMovies}
-            setShortMovies={setShortGlobalMovies}
             setIsMoviesFound={setIsGlobalMoviesFound}
-            movies={globalMovies}
-            setMovies={setGlobalMovies}
-            setFilteredMovies={setFilteredGlobalMovies}
             isShortMoviesChecked={isShortGlobalMoviesChecked}
             setIsShortMoviesChecked={setIsShortGlobalMoviesChecked}
             isLoading={isLoading}
@@ -85,14 +78,6 @@ const Movies = ({
               setCardsInARow={setCardsInARow}
               maxInitialCardsOnThePage={maxInitialCardsOnThePage}
               setMaxInitialCardsOnThePage={setMaxInitialCardsOnThePage}
-              shortMovies={shortGlobalMovies}
-              setShortMovies={setShortGlobalMovies}
-              moviesOnThePage={moviesOnTheGlobalPage}
-              setMoviesOnThePage={setMoviesOnTheGlobalPage}
-              setMovies={setGlobalMovies}
-              movies={globalMovies}
-              filteredMovies={filteredGlobalMovies}
-              setFilteredMovies={setFilteredGlobalMovies}
               setFormData={setFormDataForGlobalMovies}
               formData={formDataForGlobalMovies}
               isLoading={isLoading}
@@ -111,8 +96,6 @@ const Movies = ({
 Movies.propTypes = {
   formData: PropTypes.string,
   setFormData: PropTypes.func,
-  moviesOnThePage: PropTypes.array,
-  setMoviesOnThePage: PropTypes.func,
   isLoading: PropTypes.bool,
   setIsLoading: PropTypes.func,
   currentLocation: PropTypes.string,

@@ -14,8 +14,8 @@ import './Content.css';
 const Content = ({ setIsPopUpOpened, setPopUpMessages }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isCardLikeRequested, setIsCardLikeRequested] = useState(false);
-  const [cardsInARow, setCardsInARow] = useState(null);
-  const [maxInitialCardsOnThePage, setMaxInitialCardsOnThePage] = useState(null);
+  const [cardsInARow, setCardsInARow] = useState(0);
+  const [maxInitialCardsOnThePage, setMaxInitialCardsOnThePage] = useState(0);
 
   const currentLocation = useLocation().pathname.slice(1, useLocation().pathname.length);
 
@@ -62,6 +62,7 @@ const Content = ({ setIsPopUpOpened, setPopUpMessages }) => {
             />
           }
         />
+
         <Route
           exact
           path="/movies"
@@ -104,6 +105,7 @@ const Content = ({ setIsPopUpOpened, setPopUpMessages }) => {
             />
           }
         />
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </main>

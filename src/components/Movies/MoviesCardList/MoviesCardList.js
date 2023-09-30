@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
+import { useMoviesOnThePage } from '../../../contexts/MoviesOnThePageContext';
 import { useCurrentDevice } from '../../../contexts/WindowWidthContext';
 import { cardsOnDeviceWidth } from '../../../utils/constants';
 import MoreBtn from '../MoreBtn/MoreBtn';
@@ -11,11 +12,6 @@ const MoviesCardList = ({
   currentLocation,
   isLoading,
   setIsLoading,
-  filteredMovies,
-  setMovies,
-  moviesOnThePage,
-  setMoviesOnThePage,
-  shortMovies,
   cardsInARow,
   setCardsInARow,
   maxInitialCardsOnThePage,
@@ -24,10 +20,9 @@ const MoviesCardList = ({
   setIsCardLikeRequested,
   isCardLikeRequested,
   setIsPopUpOpened,
-  setPopUpMessages,
-  setFilteredMovies,
-  setShortMovies
+  setPopUpMessages
 }) => {
+  const { moviesOnThePage } = useMoviesOnThePage();
   const { width } = useCurrentDevice();
 
   useEffect(() => {
@@ -59,14 +54,10 @@ const MoviesCardList = ({
                 movie={movie}
                 isLoading={isLoading}
                 setIsLoading={setIsLoading}
-                setMovies={setMovies}
                 setIsCardLikeRequested={setIsCardLikeRequested}
                 isCardLikeRequested={isCardLikeRequested}
                 setIsPopUpOpened={setIsPopUpOpened}
                 setPopUpMessages={setPopUpMessages}
-                setMoviesOnThePage={setMoviesOnThePage}
-                setFilteredMovies={setFilteredMovies}
-                setShortMovies={setShortMovies}
               />
             </li>
           ))}
@@ -81,22 +72,17 @@ const MoviesCardList = ({
       ) : (
         <h2
           className={`movies-card-list__empty ${
-            moviesOnThePage.length ? '' : 'movies-card-list__empty_active'
+            moviesOnThePage.length > 1 ? '' : 'movies-card-list__empty_active'
           }`}>
           Ничего не найдено
         </h2>
       )}
-      {moviesOnThePage.length > 0 &&
-        (isShortMoviesChecked
-          ? moviesOnThePage.length < shortMovies.length
-          : moviesOnThePage.length < filteredMovies.length) &&
+
+      {JSON.parse(localStorage.getItem('movies_filteredMovies')) &&
+        moviesOnThePage.length < JSON.parse(localStorage.getItem('movies_filteredMovies')).length &&
         currentLocation === 'movies' && (
           <MoreBtn
-            moviesOnThePage={moviesOnThePage}
-            setMoviesOnThePage={setMoviesOnThePage}
             cardsInARow={cardsInARow}
-            filteredMovies={filteredMovies}
-            shortMovies={shortMovies}
             maxInitialCardsOnThePage={maxInitialCardsOnThePage}
             isShortMoviesChecked={isShortMoviesChecked}
             currentLocation={currentLocation}
@@ -107,20 +93,13 @@ const MoviesCardList = ({
 };
 
 MoviesCardList.propTypes = {
-  movies: PropTypes.array,
-  setMovies: PropTypes.func,
   isShortMoviesChecked: PropTypes.bool,
   isLoading: PropTypes.bool,
   formData: PropTypes.string,
-  filteredMovies: PropTypes.array,
-  moviesOnThePage: PropTypes.array,
   cardsInARow: PropTypes.number,
-  setMoviesOnThePage: PropTypes.func,
   setIsShortMoviesChecked: PropTypes.func,
   currentLocation: PropTypes.string,
   setIsLoading: PropTypes.func,
-  setFilteredMovies: PropTypes.func,
-  setShortMovies: PropTypes.func,
   setCardsInARow: PropTypes.func,
   setMaxInitialCardsOnThePage: PropTypes.func,
   setIsMoviesFound: PropTypes.func,
@@ -128,7 +107,6 @@ MoviesCardList.propTypes = {
   isCardLikeRequested: PropTypes.bool,
   setIsPopUpOpened: PropTypes.func,
   setPopUpMessages: PropTypes.func,
-  shortMovies: PropTypes.array,
   maxInitialCardsOnThePage: PropTypes.number,
   isMoviesFound: PropTypes.bool
 };

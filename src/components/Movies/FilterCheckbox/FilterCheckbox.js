@@ -5,6 +5,7 @@ import './FilterCheckbox.css';
 
 const FilterCheckbox = ({ isShortMoviesChecked, setIsShortMoviesChecked, currentLocation }) => {
   const { isFormSubmitting } = useFormBlocking();
+
   useEffect(() => {
     const storedValue = getIsShortMoviesCheckedFromLocalStorage();
     if (storedValue !== null) {

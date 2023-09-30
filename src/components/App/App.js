@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { FormBlockingProvider } from '../../contexts/FormBlockingContext';
+import { MoviesOnThePageProvider } from '../../contexts/MoviesOnThePageContext';
 import { tokenCheck } from '../../utils/MainApi';
 import Content from '../Content/Content';
 import Footer from '../Footer/Footer';
@@ -65,7 +66,9 @@ function App() {
           <Header />
         ) : null}
         <FormBlockingProvider>
-          <Content setIsPopUpOpened={setIsPopUpOpened} setPopUpMessages={setPopUpMessages} />
+          <MoviesOnThePageProvider>
+            <Content setIsPopUpOpened={setIsPopUpOpened} setPopUpMessages={setPopUpMessages} />
+          </MoviesOnThePageProvider>
         </FormBlockingProvider>
       </CurrentUserContext.Provider>
 

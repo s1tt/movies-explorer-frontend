@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
+import { useMoviesOnThePage } from '../../../contexts/MoviesOnThePageContext';
 import { getFavoriteMovies } from '../../../utils/MainApi';
 import { errorHandler, popUpAlertMessages } from '../../../utils/constants';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
@@ -18,29 +19,24 @@ const SavedMovies = ({
   setIsPopUpOpened,
   setPopUpMessages
 }) => {
-  const [favoriteMovies, setFavoriteMovies] = useState([]);
-  const [shortFavoriteMovies, setShortFavoriteMovies] = useState([]);
-  const [filteredFavoriteMovies, setFilteredFavoriteMovies] = useState([]);
+  const { setMoviesOnThePage } = useMoviesOnThePage();
+
   const [formDataForFavoriteMovies, setFormDataForFavoriteMovies] = useState('');
   const [isShortFavoriteMoviesChecked, setIsShortFavoriteMoviesChecked] = useState(false);
-  const [moviesOnTheFavoritePage, setMoviesOnTheFavoritePage] = useState([]);
   const [isFavoriteMoviesFound, setIsFavoriteMoviesFound] = useState(false);
 
   useEffect(() => {
     localStorage.setItem(`${currentLocation}_filteredMovies`, JSON.stringify([]));
-    setFilteredFavoriteMovies([]);
 
     getFavoriteMovies()
       .then((data) => {
-        setFavoriteMovies(data);
         localStorage.setItem(`${currentLocation}_movies`, JSON.stringify(data));
-        setMoviesOnTheFavoritePage(data);
+        setMoviesOnThePage(data);
       })
       .then(() => {
         const shortFavoriteMoviesArray = filterShortMovies(
           JSON.parse(localStorage.getItem(`${currentLocation}_movies`))
         );
-        setShortFavoriteMovies(shortFavoriteMoviesArray);
         localStorage.setItem(
           `${currentLocation}_shortMovies`,
           JSON.stringify(shortFavoriteMoviesArray)
@@ -51,52 +47,27 @@ const SavedMovies = ({
         setIsPopUpOpened(true);
         setPopUpMessages({ title: popUpAlertMessages.titles.error, message: errorHandler(error) });
       });
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem(
-      `${currentLocation}_moviesOnThePage`,
-      JSON.stringify(moviesOnTheFavoritePage)
-    );
-  }, [moviesOnTheFavoritePage]);
+  }, []); //загружаем данные с сервера при каждом рендере компонента
 
   useEffect(() => {
     if (isShortFavoriteMoviesChecked) {
-      setMoviesOnTheFavoritePage(shortFavoriteMovies);
-      localStorage.setItem(
-        `${currentLocation}_moviesOnThePage`,
-        JSON.stringify(shortFavoriteMovies)
-      );
+      const shortMovies = JSON.parse(localStorage.getItem(`${currentLocation}_shortMovies`)) || [];
+      setMoviesOnThePage(shortMovies);
     } else {
+      //проверка фильруем все карточки или после поиска
       if (formDataForFavoriteMovies.length > 0) {
-        setMoviesOnTheFavoritePage(
-          JSON.parse(localStorage.getItem(`${currentLocation}_filteredMovies`))
-        );
+        setMoviesOnThePage(JSON.parse(localStorage.getItem(`${currentLocation}_filteredMovies`)));
       } else {
-        setMoviesOnTheFavoritePage(JSON.parse(localStorage.getItem(`${currentLocation}_movies`)));
-
-        localStorage.setItem(`${currentLocation}_moviesOnThePage`, JSON.stringify(favoriteMovies));
+        setMoviesOnThePage(JSON.parse(localStorage.getItem(`${currentLocation}_movies`)));
       }
     }
-  }, [isShortFavoriteMoviesChecked]);
+  }, [isShortFavoriteMoviesChecked]); //переключение коротких и длинных фильмов
 
   useEffect(() => {
-    if (formDataForFavoriteMovies) {
-      if (isShortFavoriteMoviesChecked) {
-        setMoviesOnTheFavoritePage(filterShortMovies(filteredFavoriteMovies));
-        localStorage.setItem(
-          `${currentLocation}_moviesOnThePage`,
-          JSON.stringify(filterShortMovies(filteredFavoriteMovies))
-        );
-      } else {
-        setMoviesOnTheFavoritePage(filteredFavoriteMovies);
-        localStorage.setItem(
-          `${currentLocation}_moviesOnThePage`,
-          JSON.stringify(filteredFavoriteMovies)
-        );
-      }
-    }
-  }, [filteredFavoriteMovies]);
+    const filteredMovies =
+      JSON.parse(localStorage.getItem(`${currentLocation}_filteredMovies`)) || [];
+    setMoviesOnThePage(filteredMovies);
+  }, [formDataForFavoriteMovies]); // отображение карточек после поиска
 
   const filterShortMovies = (movies) => {
     return movies.filter((movie) => movie.duration < 40);
@@ -108,14 +79,7 @@ const SavedMovies = ({
         <div className="movies__wrapper">
           <div className="movies__search-form">
             <SearchForm
-              moviesOnThePage={moviesOnTheFavoritePage}
-              setMoviesOnThePage={setMoviesOnTheFavoritePage}
-              shortMovies={shortFavoriteMovies}
-              setShortMovies={setShortFavoriteMovies}
               setIsMoviesFound={setIsFavoriteMoviesFound}
-              movies={favoriteMovies}
-              setMovies={setFavoriteMovies}
-              setFilteredMovies={setFilteredFavoriteMovies}
               isShortMoviesChecked={isShortFavoriteMoviesChecked}
               setIsShortMoviesChecked={setIsShortFavoriteMoviesChecked}
               isLoading={isLoading}
@@ -138,14 +102,6 @@ const SavedMovies = ({
               setCardsInARow={setCardsInARow}
               maxInitialCardsOnThePage={maxInitialCardsOnThePage}
               setMaxInitialCardsOnThePage={setMaxInitialCardsOnThePage}
-              shortMovies={shortFavoriteMovies}
-              setShortMovies={setShortFavoriteMovies}
-              moviesOnThePage={moviesOnTheFavoritePage}
-              setMoviesOnThePage={setMoviesOnTheFavoritePage}
-              movies={favoriteMovies}
-              setMovies={setFavoriteMovies}
-              filteredMovies={filteredFavoriteMovies}
-              setFilteredMovies={setFilteredFavoriteMovies}
               currentLocation={currentLocation}
               isLoading={isLoading}
               setIsLoading={setIsLoading}
@@ -162,8 +118,6 @@ const SavedMovies = ({
 SavedMovies.propTypes = {
   formData: PropTypes.string,
   setFormData: PropTypes.func,
-  moviesOnThePage: PropTypes.array,
-  setMoviesOnThePage: PropTypes.func,
   isLoading: PropTypes.bool,
   setIsLoading: PropTypes.func,
   currentLocation: PropTypes.string,

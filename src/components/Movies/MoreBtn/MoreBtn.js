@@ -1,23 +1,21 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { useMoviesOnThePage } from '../../../contexts/MoviesOnThePageContext';
 import './MoreBtn.css';
 
-const MoreBtn = ({
-  moviesOnThePage,
-  setMoviesOnThePage,
-  cardsInARow,
-  filteredMovies,
-  shortMovies,
-  isShortMoviesChecked,
-  currentLocation
-}) => {
+const MoreBtn = ({ cardsInARow, isShortMoviesChecked, currentLocation }) => {
+  const { moviesOnThePage, setMoviesOnThePage } = useMoviesOnThePage();
+
   function loadCards() {
+    const shortMovies = JSON.parse(localStorage.getItem(`${currentLocation}_shortMovies`)) || [];
+    const filteredMovies =
+      JSON.parse(localStorage.getItem(`${currentLocation}_filteredMovies`)) || [];
+
     const newMovies = isShortMoviesChecked
       ? shortMovies.slice(moviesOnThePage.length, moviesOnThePage.length + cardsInARow)
       : filteredMovies.slice(moviesOnThePage.length, moviesOnThePage.length + cardsInARow);
     const newArray = [...moviesOnThePage, ...newMovies];
     setMoviesOnThePage(newArray);
-    localStorage.setItem(`${currentLocation}_moviesOnThePage`, JSON.stringify(newArray));
   }
   return (
     <button className="movies-card-list__more-btn" type="button" onClick={loadCards}>
@@ -29,11 +27,7 @@ const MoreBtn = ({
 MoreBtn.propTypes = {
   isShortMoviesChecked: PropTypes.bool,
   maxInitialCardsOnThePage: PropTypes.number,
-  shortMovies: PropTypes.array,
-  filteredMovies: PropTypes.array,
-  moviesOnThePage: PropTypes.array,
   cardsInARow: PropTypes.number,
-  setMoviesOnThePage: PropTypes.func,
   currentLocation: PropTypes.string
 };
 
