@@ -134,7 +134,8 @@ const Register = ({ setIsPopUpOpened, setPopUpMessages }) => {
         console.log(err);
         setIsPopUpOpened(true);
         setPopUpMessages({ title: popUpAlertMessages.titles.error, message: errorHandler(err) });
-      });
+      })
+      .finally(() => setIsFormSubmitting(false));
   }
 
   return (
