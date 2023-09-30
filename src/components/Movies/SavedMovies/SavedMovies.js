@@ -27,6 +27,8 @@ const SavedMovies = ({
   const [isFavoriteMoviesFound, setIsFavoriteMoviesFound] = useState(false);
 
   useEffect(() => {
+    localStorage.setItem(`${currentLocation}_filteredMovies`, JSON.stringify(''));
+    setFilteredFavoriteMovies('');
     getFavoriteMovies()
       .then((data) => {
         setFavoriteMovies(data);
@@ -44,10 +46,11 @@ const SavedMovies = ({
         );
       })
       .catch((error) => {
+        console.log(error);
         setIsPopUpOpened(true);
         setPopUpMessages({ title: popUpAlertMessages.titles.error, message: errorHandler(error) });
       });
-  }, [isCardLikeRequested]);
+  }, []);
 
   useEffect(() => {
     if (isShortFavoriteMoviesChecked) {

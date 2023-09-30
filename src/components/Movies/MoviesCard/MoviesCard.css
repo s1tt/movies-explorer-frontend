@@ -117,6 +117,12 @@
   background-color: #2be080;
 }
 
+.card__favorite-checkmark_disabled,
+.card__cross-btn:disabled {
+  cursor: default;
+  opacity: 0.7;
+}
+
 .card__cross-btn {
   position: absolute;
   bottom: 38px;

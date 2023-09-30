@@ -1,16 +1,20 @@
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useInput from '../../Hooks/useInput';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { useFormBlocking } from '../../contexts/FormBlockingContext';
 import { login } from '../../utils/MainApi';
 import { errorHandler, popUpAlertMessages } from '../../utils/constants';
 import AuthForm from '../Auth/From/AuthForm';
 import './Login.css';
 
-const Login = ({ setIsLoggedIn, setIsPopUpOpened, setPopUpMessages }) => {
+const Login = ({ setIsPopUpOpened, setPopUpMessages }) => {
   const navigate = useNavigate();
+  const { setIsLoggedIn } = useContext(CurrentUserContext);
   const [isEmailInputError, setIsEmailInputError] = useState(false);
   const [isPasswordInputError, setIsPasswordInputError] = useState(false);
+  const { setIsFormSubmitting } = useFormBlocking();
 
   const email = useInput('', {
     isEmpty: true,
@@ -68,6 +72,7 @@ const Login = ({ setIsLoggedIn, setIsPopUpOpened, setPopUpMessages }) => {
 
   function handleSubmitForm(e) {
     e.preventDefault();
+    setIsFormSubmitting(true);
     login(email.value.toLowerCase(), password.value)
       .then((res) => {
         if (res.token) {
@@ -83,9 +88,11 @@ const Login = ({ setIsLoggedIn, setIsPopUpOpened, setPopUpMessages }) => {
       })
       .then(() => navigate('/movies'))
       .catch((err) => {
+        console.log(err);
         setIsPopUpOpened(true);
         setPopUpMessages({ title: popUpAlertMessages.titles.error, message: errorHandler(err) });
-      });
+      })
+      .finally(() => setIsFormSubmitting(false));
   }
 
   return (
@@ -102,7 +109,6 @@ const Login = ({ setIsLoggedIn, setIsPopUpOpened, setPopUpMessages }) => {
 };
 
 Login.propTypes = {
-  setIsLoggedIn: PropTypes.func,
   setIsPopUpOpened: PropTypes.func,
   setPopUpMessages: PropTypes.func
 };

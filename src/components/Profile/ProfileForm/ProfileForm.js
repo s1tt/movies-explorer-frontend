@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { useFormBlocking } from '../../../contexts/FormBlockingContext';
 import './ProfileForm.css';
 import ProfileFormField from './ProfileFormField/ProfileFormField';
 
 const ProfileForm = ({ handleSubmitForm, properties, name, email, isUserInfoChanged }) => {
+  const { isFormSubmitting } = useFormBlocking();
+
   return (
     <form className="profile__form" onSubmit={handleSubmitForm}>
       <div className="profile__fields">
@@ -38,7 +41,7 @@ const ProfileForm = ({ handleSubmitForm, properties, name, email, isUserInfoChan
       </div>
       <button
         type="submit"
-        disabled={email.isInputValid || name.isInputValid || !isUserInfoChanged}
+        disabled={email.isInputValid || name.isInputValid || !isUserInfoChanged || isFormSubmitting}
         className="profile__btn-edit">
         Редактировать
       </button>

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { FormBlockingProvider } from '../../contexts/FormBlockingContext';
 import { tokenCheck } from '../../utils/MainApi';
-import { errorHandler, popUpAlertMessages } from '../../utils/constants';
 import Content from '../Content/Content';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
@@ -29,8 +29,7 @@ function App() {
           setCurrentUser(res);
         })
         .catch((err) => {
-          setIsPopUpOpened(true);
-          setPopUpMessages({ title: popUpAlertMessages.titles.error, message: errorHandler(err) });
+          console.log(err);
         })
         .finally(() => setIsTokenChecked(true));
     } else {
@@ -50,30 +49,24 @@ function App() {
 
   return (
     <div className="App">
-      {location.pathname === '/' ||
-      location.pathname === '/profile' ||
-      location.pathname === '/movies' ||
-      location.pathname === '/saved-movies' ? (
-        <Header isLoggedIn={isLoggedIn} />
-      ) : null}
-
       <CurrentUserContext.Provider
         value={{
           currentUser,
-          isPopUpOpened,
           setIsPopUpOpened,
           setPopUpMessages,
           popUpMessages,
-          isLoggedIn
+          isLoggedIn,
+          setIsLoggedIn
         }}>
-        <Content
-          setIsLoggedIn={setIsLoggedIn}
-          isLoggedIn={isLoggedIn}
-          currentUser={currentUser}
-          setCurrentUser={setCurrentUser}
-          setIsPopUpOpened={setIsPopUpOpened}
-          setPopUpMessages={setPopUpMessages}
-        />
+        {location.pathname === '/' ||
+        location.pathname === '/profile' ||
+        location.pathname === '/movies' ||
+        location.pathname === '/saved-movies' ? (
+          <Header />
+        ) : null}
+        <FormBlockingProvider>
+          <Content setIsPopUpOpened={setIsPopUpOpened} setPopUpMessages={setPopUpMessages} />
+        </FormBlockingProvider>
       </CurrentUserContext.Provider>
 
       {location.pathname === '/' ||

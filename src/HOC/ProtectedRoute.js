@@ -8,7 +8,7 @@ const ProtectedRoute = ({ element: Component, ...props }) => {
   const value = useContext(CurrentUserContext);
 
   useEffect(() => {
-    if (!value.isLoggedIn) {
+    if (!value.isLoggedIn && props.isAuthNeeded) {
       value.setIsPopUpOpened(true);
       value.setPopUpMessages({
         title: popUpAlertMessages.titles.error,
@@ -17,15 +17,20 @@ const ProtectedRoute = ({ element: Component, ...props }) => {
     }
   }, []);
 
-  if (value.isLoggedIn) {
+  if (value.isLoggedIn && props.isAuthNeeded) {
     return <Component {...props} />;
-  } else {
+  } else if (!value.isLoggedIn && props.isAuthNeeded) {
     return <Navigate to="/" replace="true" />;
+  } else if (value.isLoggedIn && !props.isAuthNeeded) {
+    return <Navigate to="/movies" replace="true" />;
+  } else {
+    return <Component {...props} />;
   }
 };
 
 ProtectedRoute.propTypes = {
-  element: PropTypes.func
+  element: PropTypes.func,
+  isAuthNeeded: PropTypes.bool
 };
 
 export default ProtectedRoute;

@@ -1,5 +1,6 @@
 const moviesApi = 'https://api.nomoreparties.co/beatfilm-movies';
-const mainApi = 'https://s1tt-moviemarksearch.nomoredomainsicu.ru/api/';
+// const mainApi = 'https://s1tt-moviemarksearch.nomoredomainsicu.ru/api/';
+const mainApi = 'http://localhost:3000/api/';
 
 const deviceWidth = {
   desktop: {

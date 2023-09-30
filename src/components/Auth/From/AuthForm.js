@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useFormBlocking } from '../../../contexts/FormBlockingContext';
 import Logo from '../../Logo/Logo';
 import './AuthForm.css';
 import Button from './Button/Button';
@@ -15,6 +16,8 @@ const AuthForm = ({
   questionLinkText,
   questionLinkTo
 }) => {
+  const { isFormSubmitting } = useFormBlocking();
+
   return (
     <section className="auth-form">
       <div className="auth-form__wrapper">
@@ -57,7 +60,9 @@ const AuthForm = ({
         </form>
         <p className="auth-form__question">
           {question}&nbsp;
-          <Link to={questionLinkTo} className="auth-form__question-link">
+          <Link
+            to={questionLinkTo}
+            className={`auth-form__question-link ${isFormSubmitting ? 'link-disabled' : ''}`}>
             {questionLinkText}
           </Link>
         </p>

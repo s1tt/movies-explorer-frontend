@@ -1,25 +1,22 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useInput from '../../Hooks/useInput.js';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
+import { useFormBlocking } from '../../contexts/FormBlockingContext';
 import { updateUserInfo } from '../../utils/MainApi.js';
 import { errorHandler, popUpAlertMessages } from '../../utils/constants.js';
 import Preloader from '../Preloader/Preloader.js';
 import './Profile.css';
 import ProfileForm from './ProfileForm/ProfileForm.js';
 
-const Profile = ({
-  setIsLoggedIn,
-  currentUser,
-  setCurrentUser,
-  isLoading,
-  setIsPopUpOpened,
-  setPopUpMessages
-}) => {
+const Profile = ({ isLoading, setIsPopUpOpened, setPopUpMessages }) => {
+  const { currentUser, setIsLoggedIn } = useContext(CurrentUserContext);
   const [isNameInputError, setIsNameInputError] = useState(false);
   const [isEmailInputError, setIsEmailInputError] = useState(false);
-
   const [isUserInfoChanged, setIsUserInfoChanged] = useState(false);
+  const { isFormSubmitting, setIsFormSubmitting } = useFormBlocking();
+
   const name = useInput(currentUser.name || '', {
     isEmpty: true,
     minLength: 3,
@@ -27,54 +24,6 @@ const Profile = ({
     isNameValidError: true
   });
   const email = useInput(currentUser.email || '', { isEmpty: true, minLength: 3, isEmail: true });
-
-  useEffect(() => {
-    setErrorState(name.errorMessage, setIsNameInputError);
-  }, [name.errorMessage]);
-
-  useEffect(() => {
-    setErrorState(email.errorMessage, setIsEmailInputError);
-  }, [email.errorMessage]);
-
-  const setErrorState = (errorMessage, setErrorFunction) => {
-    const isAllEmpty = Object.values(errorMessage).every((value) => value === '');
-    setErrorFunction(!isAllEmpty);
-  };
-
-  useEffect(() => {
-    if (name.value !== currentUser.name || email.value !== currentUser.email) {
-      setIsUserInfoChanged(true);
-    } else {
-      setIsUserInfoChanged(false);
-    }
-  }, [name.value, email.value, currentUser]);
-
-  function handleSubmitForm(e) {
-    e.preventDefault();
-    updateUserInfo({ name: name.value, email: email.value })
-      .then((res) => {
-        setCurrentUser({ ...currentUser, name: res.name, email: res.email });
-        setIsPopUpOpened(true);
-        setPopUpMessages({
-          title: popUpAlertMessages.titles.success,
-          message: popUpAlertMessages.messages.success.updateProfileSuccess
-        });
-      })
-      .catch((err) => {
-        setIsPopUpOpened(true);
-        setPopUpMessages({ title: popUpAlertMessages.titles.error, message: errorHandler(err) });
-      });
-  }
-
-  function logout() {
-    setIsPopUpOpened(true);
-    setPopUpMessages({
-      title: popUpAlertMessages.titles.success,
-      message: popUpAlertMessages.messages.success.logoutSuccess
-    });
-    setIsLoggedIn(false);
-    localStorage.clear();
-  }
 
   const properties = [
     {
@@ -105,6 +54,58 @@ const Profile = ({
     }
   ];
 
+  useEffect(() => {
+    setErrorState(name.errorMessage, setIsNameInputError);
+  }, [name.errorMessage]);
+
+  useEffect(() => {
+    setErrorState(email.errorMessage, setIsEmailInputError);
+  }, [email.errorMessage]);
+
+  const setErrorState = (errorMessage, setErrorFunction) => {
+    const isAllEmpty = Object.values(errorMessage).every((value) => value === '');
+    setErrorFunction(!isAllEmpty);
+  };
+
+  useEffect(() => {
+    if (name.value !== currentUser.name || email.value !== currentUser.email) {
+      setIsUserInfoChanged(true);
+    } else {
+      setIsUserInfoChanged(false);
+    }
+  }, [name.value, email.value, currentUser]);
+
+  function handleSubmitForm(e) {
+    e.preventDefault();
+    setIsFormSubmitting(true);
+    updateUserInfo({ name: name.value, email: email.value })
+      .then((res) => {
+        currentUser.name = res.name;
+        currentUser.email = res.email;
+        setIsPopUpOpened(true);
+        setPopUpMessages({
+          title: popUpAlertMessages.titles.success,
+          message: popUpAlertMessages.messages.success.updateProfileSuccess
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsPopUpOpened(true);
+        setPopUpMessages({ title: popUpAlertMessages.titles.error, message: errorHandler(err) });
+      })
+      .finally(() => setIsFormSubmitting(false));
+  }
+
+  function logout() {
+    setIsPopUpOpened(true);
+    setPopUpMessages({
+      title: popUpAlertMessages.titles.success,
+      message: popUpAlertMessages.messages.success.logoutSuccess
+    });
+    setIsLoggedIn(false);
+    localStorage.clear();
+  }
+
   return (
     <section className="profile">
       <div className="profile__wrapper">
@@ -120,7 +121,10 @@ const Profile = ({
               email={email}
               isUserInfoChanged={isUserInfoChanged}
             />
-            <Link to="/" className="profile__btn-logout" onClick={() => logout()}>
+            <Link
+              to="/"
+              className={`profile__btn-logout ${isFormSubmitting ? 'link-disabled' : ''}`}
+              onClick={() => logout()}>
               Выйти из аккаунта
             </Link>
           </>
@@ -131,8 +135,6 @@ const Profile = ({
 };
 
 Profile.propTypes = {
-  setIsLoggedIn: PropTypes.func,
-  setCurrentUser: PropTypes.func,
   currentUser: PropTypes.object,
   isLoading: PropTypes.bool,
   setIsPopUpOpened: PropTypes.func,

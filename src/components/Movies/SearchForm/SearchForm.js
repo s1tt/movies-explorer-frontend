@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
+import { useFormBlocking } from '../../../contexts/FormBlockingContext';
 import findIco from '../../../images/find.svg';
 import { getMovies } from '../../../utils/MoviesApi';
 import { errorHandler, popUpAlertMessages } from '../../../utils/constants';
@@ -24,6 +25,7 @@ const SearchForm = ({
   setIsPopUpOpened,
   setPopUpMessages
 }) => {
+  const { isFormSubmitting, setIsFormSubmitting } = useFormBlocking();
   // сброс формы при перезагрузке страницы в сохраненных
   useEffect(() => {
     if (currentLocation === 'saved-movies') {
@@ -74,6 +76,7 @@ const SearchForm = ({
 
   //если хранилище пусто, берем с сервера
   const getCardsFromTheServer = () => {
+    setIsFormSubmitting(true);
     setIsLoading(true);
     if (localStorage.getItem(`${currentLocation}_movies`) === null) {
       getMovies()
@@ -82,6 +85,7 @@ const SearchForm = ({
           setMovies(res);
         })
         .catch((error) => {
+          console.log(error);
           setIsPopUpOpened(true);
           setPopUpMessages({
             title: popUpAlertMessages.titles.error,
@@ -90,9 +94,11 @@ const SearchForm = ({
         })
         .finally(() => {
           setIsLoading(false);
+          setIsFormSubmitting(false);
         });
     } else {
       setIsLoading(false);
+      setIsFormSubmitting(false);
     }
   };
 
@@ -132,9 +138,10 @@ const SearchForm = ({
             name="search-form"
             id="searchForm"
             defaultValue={formData}
+            disabled={isFormSubmitting}
           />
         </label>
-        <button type="submit" className="search-form__btn">
+        <button type="submit" className="search-form__btn" disabled={isFormSubmitting}>
           <img className="search-form__btn-icon" src={findIco} alt="Иконка поиска фильма" />
         </button>
       </div>
@@ -168,7 +175,7 @@ SearchForm.propTypes = {
   shortMovies: PropTypes.array,
   setIsPopUpOpened: PropTypes.func,
   setPopUpMessages: PropTypes.func,
-  moviesOnThePage: PropTypes.array
+  moviesOnThePage: PropTypes.oneOfType([PropTypes.string, PropTypes.array])
 };
 
 export default SearchForm;

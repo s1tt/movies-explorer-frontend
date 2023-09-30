@@ -24,7 +24,8 @@ const MoviesCardList = ({
   setIsCardLikeRequested,
   isCardLikeRequested,
   setIsPopUpOpened,
-  setPopUpMessages
+  setPopUpMessages,
+  setFilteredMovies
 }) => {
   const { width } = useCurrentDevice();
 
@@ -62,6 +63,8 @@ const MoviesCardList = ({
                 isCardLikeRequested={isCardLikeRequested}
                 setIsPopUpOpened={setIsPopUpOpened}
                 setPopUpMessages={setPopUpMessages}
+                setMoviesOnThePage={setMoviesOnThePage}
+                setFilteredMovies={setFilteredMovies}
               />
             </li>
           ))}
@@ -107,8 +110,8 @@ MoviesCardList.propTypes = {
   isShortMoviesChecked: PropTypes.bool,
   isLoading: PropTypes.bool,
   formData: PropTypes.string,
-  filteredMovies: PropTypes.array,
-  moviesOnThePage: PropTypes.array,
+  filteredMovies: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  moviesOnThePage: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   cardsInARow: PropTypes.number,
   setMoviesOnThePage: PropTypes.func,
   setIsShortMoviesChecked: PropTypes.func,

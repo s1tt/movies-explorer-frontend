@@ -11,14 +11,7 @@ import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import './Content.css';
 
-const Content = ({
-  isLoggedIn,
-  setIsLoggedIn,
-  setCurrentUser,
-  currentUser,
-  setIsPopUpOpened,
-  setPopUpMessages
-}) => {
+const Content = ({ setIsPopUpOpened, setPopUpMessages }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isCardLikeRequested, setIsCardLikeRequested] = useState(false);
   const [cardsInARow, setCardsInARow] = useState(null);
@@ -34,8 +27,9 @@ const Content = ({
           exact
           path="/signup"
           element={
-            <Register
-              setIsLoggedIn={setIsLoggedIn}
+            <ProtectedRoute
+              element={Register}
+              isAuthNeeded={false}
               setIsPopUpOpened={setIsPopUpOpened}
               setPopUpMessages={setPopUpMessages}
             />
@@ -45,8 +39,9 @@ const Content = ({
           exact
           path="/signin"
           element={
-            <Login
-              setIsLoggedIn={setIsLoggedIn}
+            <ProtectedRoute
+              element={Login}
+              isAuthNeeded={false}
               setIsPopUpOpened={setIsPopUpOpened}
               setPopUpMessages={setPopUpMessages}
             />
@@ -59,12 +54,9 @@ const Content = ({
           element={
             <ProtectedRoute
               element={Profile}
+              isAuthNeeded={true}
               setPopUpMessages={setPopUpMessages}
               setIsPopUpOpened={setIsPopUpOpened}
-              setIsLoggedIn={setIsLoggedIn}
-              isLoggedIn={isLoggedIn}
-              setCurrentUser={setCurrentUser}
-              currentUser={currentUser}
               isLoading={isLoading}
               setIsLoading={setIsLoading}
             />
@@ -76,6 +68,7 @@ const Content = ({
           element={
             <ProtectedRoute
               element={Movies}
+              isAuthNeeded={true}
               isCardLikeRequested={isCardLikeRequested}
               setIsCardLikeRequested={setIsCardLikeRequested}
               cardsInARow={cardsInARow}
@@ -95,6 +88,7 @@ const Content = ({
           path="/saved-movies"
           element={
             <ProtectedRoute
+              isAuthNeeded={true}
               element={SavedMovies}
               isCardLikeRequested={isCardLikeRequested}
               setIsCardLikeRequested={setIsCardLikeRequested}
@@ -117,9 +111,6 @@ const Content = ({
 };
 
 Content.propTypes = {
-  setIsLoggedIn: PropTypes.func,
-  isLoggedIn: PropTypes.bool,
-  setCurrentUser: PropTypes.func,
   currentUser: PropTypes.object,
   setIsPopUpOpened: PropTypes.func,
   setPopUpMessages: PropTypes.func

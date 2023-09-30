@@ -38,6 +38,12 @@
   transition: opacity 0.3s;
 }
 
+.link-disabled {
+  cursor: default;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
 .profile__btn-logout:hover {
   opacity: 0.7;
 }

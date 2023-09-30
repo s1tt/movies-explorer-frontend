@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { useFormBlocking } from '../../../../contexts/FormBlockingContext';
 import ValidationError from '../ValidationError/ValidationError';
 import './Field.css';
 
@@ -16,6 +17,7 @@ const Field = ({
   validation,
   error
 }) => {
+  const { isFormSubmitting } = useFormBlocking();
   return (
     <>
       <label className="auth-form__label" htmlFor={htmlFor}>
@@ -30,6 +32,7 @@ const Field = ({
         value={value}
         onChange={onChange}
         onFocus={onFocus}
+        disabled={isFormSubmitting}
       />
       <div className="validation-errors">
         {validation.properties.map((property, index) => (

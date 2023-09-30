@@ -1,17 +1,21 @@
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useInput from '../../Hooks/useInput.js';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
+import { useFormBlocking } from '../../contexts/FormBlockingContext.js';
 import { login, registration } from '../../utils/MainApi.js';
 import { errorHandler, popUpAlertMessages } from '../../utils/constants.js';
 import AuthForm from '../Auth/From/AuthForm.js';
 import './Register.css';
 
-const Register = ({ setIsLoggedIn, setIsPopUpOpened, setPopUpMessages }) => {
+const Register = ({ setIsPopUpOpened, setPopUpMessages }) => {
   const navigate = useNavigate();
+  const { setIsLoggedIn } = useContext(CurrentUserContext);
   const [isNameInputError, setIsNameInputError] = useState(false);
   const [isEmailInputError, setIsEmailInputError] = useState(false);
   const [isPasswordInputError, setIsPasswordInputError] = useState(false);
+  const { setIsFormSubmitting } = useFormBlocking();
 
   const name = useInput('', {
     isEmpty: true,
@@ -92,6 +96,7 @@ const Register = ({ setIsLoggedIn, setIsPopUpOpened, setPopUpMessages }) => {
 
   function handleSubmitForm(e) {
     e.preventDefault();
+    setIsFormSubmitting(true);
     registration(name.value, email.value.toLowerCase(), password.value)
       .then((res) => {
         if (res._id) {
@@ -110,11 +115,12 @@ const Register = ({ setIsLoggedIn, setIsPopUpOpened, setPopUpMessages }) => {
               }
             })
             .catch((err) => {
+              console.log(err);
               setIsPopUpOpened(true);
               setPopUpMessages({
                 title: popUpAlertMessages.titles.error,
                 message: errorHandler(err)
-              });
+              }).finally(() => setIsFormSubmitting(false));
             });
         } else {
           setIsPopUpOpened(true);
@@ -125,6 +131,7 @@ const Register = ({ setIsLoggedIn, setIsPopUpOpened, setPopUpMessages }) => {
         }
       })
       .catch((err) => {
+        console.log(err);
         setIsPopUpOpened(true);
         setPopUpMessages({ title: popUpAlertMessages.titles.error, message: errorHandler(err) });
       });
@@ -144,7 +151,6 @@ const Register = ({ setIsLoggedIn, setIsPopUpOpened, setPopUpMessages }) => {
 };
 
 Register.propTypes = {
-  setIsLoggedIn: PropTypes.func,
   setIsPopUpOpened: PropTypes.func,
   setPopUpMessages: PropTypes.func
 };

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { useFormBlocking } from '../../../../contexts/FormBlockingContext';
 import ValidationError from '../../../Auth/From/ValidationError/ValidationError';
 import './ProfileFormField.css';
 
@@ -13,6 +14,7 @@ const ProfileFormField = ({
   validation,
   error
 }) => {
+  const { isFormSubmitting } = useFormBlocking();
   return (
     <label htmlFor={htmlFor} className="profile__label">
       <div className="profile__field">
@@ -26,6 +28,7 @@ const ProfileFormField = ({
           placeholder={inputPlaceholder}
           onChange={(e) => validation.target.onChange(e)}
           onFocus={(e) => validation.target.onFocus(e)}
+          disabled={isFormSubmitting}
         />
       </div>
       <div className="validation-errors profile__errors">
