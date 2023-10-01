@@ -29,7 +29,7 @@ const Movies = ({
 
   useEffect(() => {
     getFilteredMovies();
-  }, [isLoading, cardsInARow, formDataForGlobalMovies]); //отображение карточек при первом запросе, перезагрузке страницы, сабмита формы
+  }, [isLoading, cardsInARow, formDataForGlobalMovies, maxInitialCardsOnThePage]); //отображение карточек при первом запросе, перезагрузке страницы, сабмита формы
 
   useEffect(() => {
     if (isShortGlobalMoviesChecked) {

@@ -28,18 +28,23 @@ const deviceWidth = {
 const cardsOnDeviceWidth = {
   fourCardsInARow: {
     width: 1280,
-    columns: 4,
+    addCards: 4,
     maxInitialCards: 16
   },
   threeCardsInARow: {
     width: 990,
-    columns: 3,
+    addCards: 3,
     maxInitialCards: 12
   },
   twoCardsInARow: {
     width: 768,
-    columns: 2,
+    addCards: 2,
     maxInitialCards: 8
+  },
+  oneCardInARow: {
+    width: 320,
+    addCards: 2,
+    maxInitialCards: 5
   }
 };
 

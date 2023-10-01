@@ -26,18 +26,18 @@ const MoviesCardList = ({
   const { width } = useCurrentDevice();
 
   useEffect(() => {
-    let newCardsInARow = 1;
-    let newMaxInitialCardsOnThePage = 5;
+    let newCardsInARow = cardsOnDeviceWidth.oneCardInARow.addCards;
+    let newMaxInitialCardsOnThePage = cardsOnDeviceWidth.oneCardInARow.maxInitialCards;
 
     if (width >= cardsOnDeviceWidth.fourCardsInARow.width) {
-      newCardsInARow = 4;
-      newMaxInitialCardsOnThePage = 16;
+      newCardsInARow = cardsOnDeviceWidth.fourCardsInARow.addCards;
+      newMaxInitialCardsOnThePage = cardsOnDeviceWidth.fourCardsInARow.maxInitialCards;
     } else if (width >= cardsOnDeviceWidth.threeCardsInARow.width) {
-      newCardsInARow = 3;
-      newMaxInitialCardsOnThePage = 12;
+      newCardsInARow = cardsOnDeviceWidth.threeCardsInARow.addCards;
+      newMaxInitialCardsOnThePage = cardsOnDeviceWidth.threeCardsInARow.maxInitialCards;
     } else if (width >= cardsOnDeviceWidth.twoCardsInARow.width) {
-      newCardsInARow = 2;
-      newMaxInitialCardsOnThePage = 8;
+      newCardsInARow = cardsOnDeviceWidth.twoCardsInARow.addCards;
+      newMaxInitialCardsOnThePage = cardsOnDeviceWidth.twoCardsInARow.maxInitialCards;
     }
 
     setCardsInARow(newCardsInARow);
