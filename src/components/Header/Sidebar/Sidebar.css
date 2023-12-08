@@ -1,4 +1,6 @@
 .sidebar {
+  display: flex;
+  justify-content: center;
   position: fixed;
   height: 100vh;
   background-color: var(--second-bg-color);
@@ -16,13 +18,11 @@
 }
 
 .sidebar__wrapper {
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 160px 0 90px;
-  height: 100%;
+  margin: 160px 0 90px;
 }
 
 @media screen and (max-width: 520px) {
@@ -31,6 +31,6 @@
   }
 
   .sidebar__wrapper {
-    padding: 144px 0 46px;
+    margin: 144px 0 46px;
   }
 }

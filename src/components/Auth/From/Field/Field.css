@@ -1,0 +1,33 @@
+.auth-form__label {
+  color: #8b8b8b;
+  font-size: 10px;
+  line-height: normal;
+  margin-bottom: 10px;
+}
+
+.auth-form__input {
+  color: #fff;
+  font-size: 13px;
+  line-height: normal;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  background: #2f2f2f;
+  margin-bottom: 20px;
+}
+
+.auth-form__input:focus {
+  outline-color: #424242;
+  outline-style: solid;
+  outline-width: 3px;
+}
+
+.auth-form__input_error,
+.auth-form__input_error:focus {
+  color: #ee3465;
+  outline-color: #ee3465;
+}
+
+.auth-form__input:last-of-type {
+  margin-bottom: 10px;
+}

@@ -18,6 +18,13 @@ const Sidebar = ({ open, setOpen, toggleScrollLock }) => {
     }
   }
 
+  const closeBurgerWithOverlay = (e) => {
+    if (e.target === e.currentTarget) {
+      // Проверяем, был ли клик именно на область попапа, а не на его содержимое
+      setOpen(false);
+    }
+  };
+
   return (
     <>
       <div className={`sidebar ${open ? 'sidebar_open' : ''}`}>
@@ -26,7 +33,7 @@ const Sidebar = ({ open, setOpen, toggleScrollLock }) => {
           <AccountBtn closeBurger={closeBurger} />
         </div>
       </div>
-      {open && <Blackout />}
+      {open && <Blackout closeBurgerWithOverlay={closeBurgerWithOverlay} />}
     </>
   );
 };

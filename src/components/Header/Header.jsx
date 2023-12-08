@@ -1,9 +1,9 @@
-import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './Header.css';
 
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useCurrentDevice } from '../../contexts/WindowWidthContext.js';
 import Logo from '../Logo/Logo';
 import NavTab from '../Main/NavTab/NavTab';
@@ -12,13 +12,13 @@ import Auth from './Auth/Auth';
 import BurgerBtn from './Sidebar/BurgerBtn/BurgerBtn';
 import Sidebar from './Sidebar/Sidebar';
 
-function Header({ isLoggedIn }) {
-  const currentDevice = useCurrentDevice();
+function Header() {
+  const { isLoggedIn } = useContext(CurrentUserContext);
+  const currentDevice = useCurrentDevice().device;
   const location = useLocation();
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
 
   const toggleScrollLock = () => {
-    console.log(isBurgerOpen + '!!!!!!!!!!!!!!!!');
     if (!isBurgerOpen) {
       disableBodyScroll(document.body);
     } else {
@@ -58,8 +58,4 @@ function Header({ isLoggedIn }) {
     </header>
   );
 }
-
-Header.propTypes = {
-  isLoggedIn: PropTypes.bool
-};
 export default Header;

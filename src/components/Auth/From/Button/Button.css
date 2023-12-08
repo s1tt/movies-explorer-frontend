@@ -1,0 +1,31 @@
+.auth-form__button {
+  text-decoration: none;
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: normal;
+  background-color: #4285f4;
+  padding: 15px 0;
+  margin-bottom: 16px;
+  text-align: center;
+  border-radius: 3px;
+  transition: opacity 0.3s;
+}
+
+.auth-form__button:disabled:hover,
+.auth-form__button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.auth-form__button:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 520px) {
+  .auth-form__button {
+    font-size: 12px;
+  }
+}
